@@ -2,7 +2,7 @@
 #SBATCH --job-name=solgel_pH8.0
 #SBATCH --nodes=1
 #SBATCH --ntasks=12
-#SBATCH --time=24:00:00
+#SBATCH --time=168:00:00
 #SBATCH --output=out/slurm_solgel_pH8.0_%j.out
 
 echo "=== Starting LAMMPS Sol-Gel Run ==="
