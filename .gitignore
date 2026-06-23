@@ -22,7 +22,6 @@ __pycache__/
 *.log
 *.screen
 log.lammps
-out/
 tmp/
 backup/
 *.nfs*
