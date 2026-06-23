@@ -16,7 +16,6 @@ __pycache__/
 .vscode/
 
 # LAMMPS & Simulation Outputs
-*.lammpstrj
 *.data
 *.restart*
 *.log
