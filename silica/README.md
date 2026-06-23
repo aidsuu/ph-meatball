@@ -10,8 +10,8 @@ To overcome the challenges of simulating complex chemical reactions and long cry
 ---
 
 ## Project Goals & Checklist
-- [x] **Phase A (Precursor Building)**: Generate initial configuration boxes containing $\text{Si(OH)}_4$, $\text{Si(OH)}_3\text{O}^-$, $\text{H}_2\text{O}$, and $\text{H}_3\text{O}^+$ corresponding to pH 6.0, 6.5, 7.0, 7.5, and 8.0.
-- [ ] **Phase B (Sol-Gel Condensation)**: Perform reactive MD runs with ReaxFF to simulate condensation chemistry.
+- [x] **Phase A (Precursor Building)**: Generate initial configuration boxes (low-density "mist" at ~0.57 g/cm³) containing $\text{Si(OH)}_4$, $\text{Si(OH)}_3\text{O}^-$, $\text{H}_2\text{O}$, and $\text{H}_3\text{O}^+$ corresponding to pH 6.0, 6.5, 7.0, 7.5, and 8.0.
+- [x] **Phase B (Sol-Gel Condensation)**: Perform reactive MD runs with ReaxFF, including a critical *box compression* step (`fix deform`) to achieve realistic liquid density (~1.4 g/cm³) before running the high-temperature condensation chemistry at 2000 K.
 - [ ] **Phase C (Drying & Conversion)**: Post-process the sol-gel output to remove water and hydrogen, preparing a dry, charge-balanced $\text{SiO}_2$ network.
 - [ ] **Phase D (Calcination)**: Run accelerated MD with PLUMED2 well-tempered metadynamics to transition amorphous silica to cristobalite/tridymite.
 - [ ] **Phase E (Post-Processing & Analysis)**:
@@ -98,6 +98,7 @@ python structures/build_precursor.py --n-silica 100 --density 1.0 --seed 42
 
 ### Phase 2: Sol-Gel Condensation (Phase B - ReaxFF MD)
 Run reactive MD to simulate the condensation reaction $\text{Si-OH} + \text{HO-Si} \rightarrow \text{Si-O-Si} + \text{H}_2\text{O}$ at high temperature.
+*Note: The simulation automatically compresses the initial low-density gas mist ($0.57\ \text{g/cm}^3$) into a dense liquid ($1.4-1.5\ \text{g/cm}^3$) via `fix deform` before heating to $2000\text{ K}$, ensuring physical collisions and preventing vaporization.*
 ```bash
 cd simulations
 
