@@ -1,0 +1,35 @@
+# Minimal conda environment for LAMMPS+PLUMED silica simulations
+# Works on any Linux system (local machine or HPC)
+#
+# Setup:
+#   conda env create -f environment.yml
+#   conda activate rki-silica
+#
+# No compilation needed — conda provides pre-built LAMMPS with:
+#   REAXFF, PLUMED, MANYBODY (Vashishta), KSPACE, OPENMP, ML-PACE, etc.
+#
+# Verify:
+#   lmp -h | grep "Installed packages" -A 5
+#   plumed info --version
+#
+name: rki
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  # --- Core simulation (pre-built, no compilation) ---
+  - lammps=2024.08.29=cpu_*_mpi_openmpi_*
+  - plumed=2.9.2=mpi_openmpi_*
+  - openmpi
+  - mpi4py
+
+  # --- Structure building & analysis ---
+  - ase
+  - numpy
+  - scipy
+  - matplotlib-base
+  - pandas
+
+  # --- Utilities ---
+  - python>=3.12
+  - pip

@@ -1,0 +1,26 @@
+#  Timestep    No_Moles    No_Specs         H2O      H7O6Si     H9O9Si2      H5O5Si         H3O      H4O4Si      H3O3Si          O2      H6O5Si      H3O4Si     H7O8Si2          HO
+       5042         521          12         345           1           1          55          76           9           2           1          14          15           1           1
+#  Timestep    No_Moles    No_Specs         H2O      H7O6Si      H5O5Si         H3O      H4O4Si        H2O2      H3O3Si          O2      H6O5Si      H3O4Si   H10O12Si3     H7O8Si2          HO
+      10042         517          13         343           1          59          74          11           1           3           1          14           7           1           1           1
+#  Timestep    No_Moles    No_Specs         H2O      H7O6Si      H5O5Si         H3O      H4O4Si        H2O2      H3O3Si          O2      H6O5Si      H3O4Si        H4O2     H7O8Si2          HO
+      15042         513          13         337           1          63          74          11           1           3           1          14           4           1           2           1
+#  Timestep    No_Moles    No_Specs         H2O      H7O6Si      H5O5Si         H3O      H4O4Si        H2O2      H3O3Si      H5O7Si     H8O9Si2      H6O5Si     H6O8Si2     H9O9Si2        H3O2      H3O4Si     H7O8Si2
+      20042         508          15         336           1          61          74          10           1           3           1           1          15           1           1           1           1           1
+#  Timestep    No_Moles    No_Specs         H2O      H7O6Si      H5O5Si         H3O      H4O4Si      H3O3Si          O2      H6O5Si      H3O4Si     H8O9Si2        H3O2     H7O8Si2
+      25042         509          12         336           1          64          74          10           2           1          15           2           1           1           2
+#  Timestep    No_Moles    No_Specs         H2O      H7O6Si      H5O5Si         H3O      H4O4Si        H2O2      H3O3Si          O2     H8O9Si2      H6O5Si        H3O2     H7O8Si2     H6O7Si2      H3O4Si
+      30042         509          14         335           1          62          74          10           1           3           1           2          15           2           1           1           1
+#  Timestep    No_Moles    No_Specs         H2O      H7O6Si      H5O5Si         H3O      H4O4Si        H5O3      H3O3Si           O      H6O5Si     H8O9Si2        H3O2      H5O6Si     H7O8Si2
+      35042         505          13         333           1          63          72           8           1           3           1          18           1           1           1           2
+#  Timestep    No_Moles    No_Specs         H2O      H7O6Si      H5O5Si         H3O      H4O4Si        H5O3      H3O3Si          O2        H3O2      H6O5Si     H8O9Si2     H7O8Si2     H6O7Si2
+      40042         506          13         333           1          64          72           9           1           3           1           2          17           1           1           1
+#  Timestep    No_Moles    No_Specs         H2O      H7O6Si      H5O5Si         H3O      H4O4Si        H5O3      H3O3Si          O2      H6O5Si        H4O3     H8O9Si2     H7O8Si2      H4O5Si          HO
+      45042         509          14         335           1          63          72          10           1           5           1          16           1           1           1           1           1
+#  Timestep    No_Moles    No_Specs         H2O      H7O6Si      H5O5Si         H3O      H4O4Si        H5O3      H3O3Si          O2      H6O5Si        H4O3     H8O9Si2        H3O2     H7O8Si2      H4O5Si
+      50042         508          14         334           1          63          72          10           1           5           1          16           1           1           1           1           1
+#  Timestep    No_Moles    No_Specs         H2O      H7O6Si      H5O5Si         H3O      H4O4Si        H5O3      H3O3Si          O2      H6O5Si        H4O3     H8O9Si2        H3O2     H7O8Si2      H5O4Si          HO      H6O6Si
+      55042         508          16         333           1          63          72          10           1           5           1          15           1           1           1           1           1           1           1
+#  Timestep    No_Moles    No_Specs         H2O      H5O5Si         H3O      H4O4Si        H5O3      H3O3Si      H5O7Si      H6O5Si        H2O2        H4O3     H8O9Si2        H3O2     H7O8Si2      H5O4Si          HO      H4O5Si
+      60042         510          16         335          62          72          10           1           6           1          15           1           1           1           1           1           1           1           1
+#  Timestep    No_Moles    No_Specs         H2O      H7O6Si      H5O5Si         H3O      H4O4Si        H5O3      H3O3Si      H5O7Si      H6O5Si        H4O3     H8O9Si2        H3O2     H7O8Si2          HO      H5O4Si      H4O5Si
+      65042         509          16         333           1          61          72           9           1           7           1          15           2           1           1           1           2           1           1

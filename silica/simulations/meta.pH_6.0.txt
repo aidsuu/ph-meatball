@@ -1,0 +1,9 @@
+pH = 6.0
+n_sioh4 = 86
+n_sioh3 = 14
+n_water = 400
+n_hydronium = 14
+total_atoms = 2142
+box_length = 36.588083
+target_density = 1.0
+seed = 42

@@ -1,0 +1,23 @@
+# DATE: 2015-10-14 UNITS: metal CONTRIBUTOR: Aidan Thompson, athomps@sandia.gov
+# CITATION: P. Vashishta, R. K. Kalia, J. P. Rino, and I. Ebbsjo,
+#           Phys. Rev. B 41, 12197 (1990).
+#
+# Vashishta potential file for SiO2
+#
+# These entries are in LAMMPS "metal" units:
+#   H = eV*Angstroms^eta; Zi, Zj = |e| (e = electronic charge);
+#   lambda1, lambda4, rc, r0, gamma = Angstroms;
+#   D = eV*Angstroms^4; W = eV*Angstroms^6; B = eV; C = eV;
+#   costheta = unitless
+#
+# element1  element2  element3
+#           H  eta  Zi  Zj  lambda1  D  lambda4  W  rc  B  gamma  r0  C  costheta
+
+Si  Si  Si  0.82023  11  1.6  1.6  999.0  0.0  4.43  0.0  10.0  0.0  0.0  0.0  0.0  0.0
+Si  Si  O   0.82023  11  1.6  1.6  999.0  0.0  4.43  0.0  10.0  0.0  0.0  0.0  0.0  0.0
+Si  O   Si  163.025  9   1.6  -0.8  999.0  44.2357  4.43  0.0  10.0  0.0  0.0  0.0  0.0  0.0
+Si  O   O   163.025  9   1.6  -0.8  999.0  44.2357  4.43  0.0  10.0  4.993  1.0  2.60  0.0  -0.333333
+O   Si  Si  163.025  9  -0.8  1.6  999.0  44.2357  4.43  0.0  10.0  0.0  0.0  0.0  0.0  0.0
+O   Si  O   163.025  9  -0.8  1.6  999.0  44.2357  4.43  0.0  10.0  19.972  1.0  2.60  0.0  -0.333333
+O   O   Si  743.848  7  -0.8  -0.8  999.0  22.1179  4.43  0.0  10.0  0.0  0.0  0.0  0.0  0.0
+O   O   O   743.848  7  -0.8  -0.8  999.0  22.1179  4.43  0.0  10.0  0.0  0.0  0.0  0.0  0.0
