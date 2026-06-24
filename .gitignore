@@ -7,6 +7,9 @@
 ehthumbs.db
 Thumbs.db
 
+# Docs
+plumed2
+
 # Python
 __pycache__/
 *.py[cod]
@@ -35,3 +38,12 @@ archive/
 
 # IDE / Antigravity files
 .gemini/
+
+# PLUMED & SLURM outputs
+bck.*
+COLVAR*
+HILLS*
+*.out
+out/
+*.ndx
+*plumed_pH*.dat
