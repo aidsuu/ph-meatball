@@ -1,7 +1,7 @@
 #!/bin/bash
 #SBATCH --nodes=1
 #SBATCH --ntasks=12
-#SBATCH --time=168:00:00
+#SBATCH --time=720:00:00
 
 PH=$1
 

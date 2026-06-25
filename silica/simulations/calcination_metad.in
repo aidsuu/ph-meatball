@@ -87,7 +87,7 @@ print           "=== Phase 5: Metadynamics Calcination at 1173 K ==="
 fix             pl all plumed plumedfile plumed_pH${pH}.dat outfile out/plumed_pH${pH}.out
 
 fix             nvt_calc all nvt temp 1173.0 1173.0 0.1
-run             2000000   # 2 ns calcination (accelerated by metadynamics)
+run             5000000   # 5 ns calcination (accelerated by metadynamics)
 unfix           nvt_calc
 
 unfix           pl

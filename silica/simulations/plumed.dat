@@ -36,9 +36,9 @@ q6: Q6 SPECIES=si_atoms SWITCH={RATIONAL R_0=0.35 D_MAX=0.80 NN=12 MM=24} VMEAN
 metad: METAD ...
     ARG=q4.vmean,q6.vmean
     PACE=500                  # Deposit Gaussian every 500 steps (0.5 ps)
-    HEIGHT=5.0                # Initial Gaussian height (kJ/mol) — ref paper uses 40, scaled for our smaller system
+    HEIGHT=30.0               # Initial Gaussian height (kJ/mol) — aggressively forcing crystallization
     SIGMA=0.02,0.02           # Gaussian width for Q4, Q6 - wider for smoother bias
-    BIASFACTOR=50             # Well-tempered bias factor (γ) — ref paper uses 100
+    BIASFACTOR=100            # Well-tempered bias factor (γ) — ref paper uses 100
     TEMP=1173                 # Simulation temperature (K)
     FILE=out/HILLS                # Output hills file
     GRID_MIN=-1.0,-1.0          # Grid boundaries for Q4, Q6
