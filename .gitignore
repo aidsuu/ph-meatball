@@ -44,6 +44,8 @@ bck.*
 COLVAR*
 HILLS*
 *.out
-out/
+out/*
+!out/*.final
+!out/data.vash_vashishta_*
 *.ndx
 *plumed_pH*.dat
