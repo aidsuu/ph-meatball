@@ -64,31 +64,31 @@ unfix           deform2
 run             5000     # 5 ps relax
 unfix           nvt_c2
 
-# ── Phase 2: Equilibrate at 300 K (NVT) ────────────────────────────────────
+# ── Phase 2: Equilibrate at 300 K (NPT) ────────────────────────────────────
 print           "=== Phase 2: Equilibration at 300 K ==="
-fix             nvt_eq all nvt temp 300.0 300.0 0.1
+fix             npt_eq all npt temp 300.0 300.0 0.1 iso 1.0 1.0 1.0
 run             20000    # 20 ps equilibration
-unfix           nvt_eq
+unfix           npt_eq
 
-# ── Phase 3: Heating 300 K → 1173 K (NVT) ─────────────────────────────────
+# ── Phase 3: Heating 300 K → 1173 K (NPT) ─────────────────────────────────
 print           "=== Phase 3: Heating 300 K → 1173 K ==="
-fix             nvt_heat all nvt temp 300.0 1173.0 0.1
+fix             npt_heat all npt temp 300.0 1173.0 0.1 iso 1.0 1.0 1.0
 run             50000    # 50 ps heating ramp
-unfix           nvt_heat
+unfix           npt_heat
 
-# ── Phase 4: Equilibrate at 1173 K (NVT) ──────────────────────────────────
+# ── Phase 4: Equilibrate at 1173 K (NPT) ──────────────────────────────────
 print           "=== Phase 4: Equilibration at 1173 K ==="
-fix             nvt_hot all nvt temp 1173.0 1173.0 0.1
+fix             npt_hot all npt temp 1173.0 1173.0 0.1 iso 1.0 1.0 1.0
 run             20000    # 20 ps equilibration at target temp
-unfix           nvt_hot
+unfix           npt_hot
 
-# ── Phase 5: Metadynamics Calcination at 1173 K (NVT) ────────────────────
+# ── Phase 5: Metadynamics Calcination at 1173 K (NPT) ────────────────────
 print           "=== Phase 5: Metadynamics Calcination at 1173 K ==="
 fix             pl all plumed plumedfile plumed_pH${pH}.dat outfile out/plumed_pH${pH}.out
 
-fix             nvt_calc all nvt temp 1173.0 1173.0 0.1
+fix             npt_calc all npt temp 1173.0 1173.0 0.1 iso 1.0 1.0 1.0
 run             5000000   # 5 ns calcination (accelerated by metadynamics)
-unfix           nvt_calc
+unfix           npt_calc
 
 unfix           pl
 
