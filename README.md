@@ -12,8 +12,8 @@ To overcome the challenges of simulating complex chemical reactions and long cry
 ## Project Goals & Checklist
 - [x] **Phase A (Precursor Building)**: Generate initial configuration boxes (low-density "mist" at ~0.57 g/cm³) containing $\text{Si(OH)}_4$, $\text{Si(OH)}_3\text{O}^-$, $\text{H}_2\text{O}$, and $\text{H}_3\text{O}^+$ corresponding to pH 6.0, 6.5, 7.0, 7.5, and 8.0.
 - [x] **Phase B (Sol-Gel Condensation)**: Perform reactive MD runs with ReaxFF, including a critical *box compression* step (`fix deform`) to achieve realistic liquid density (~1.4 g/cm³) before running the high-temperature condensation chemistry at 2000 K.
-- [ ] **Phase C (Drying & Conversion)**: Post-process the sol-gel output to remove water and hydrogen, preparing a dry, charge-balanced $\text{SiO}_2$ network.
-- [ ] **Phase D (Calcination)**: Run accelerated MD with PLUMED2 well-tempered metadynamics to transition amorphous silica to cristobalite/tridymite.
+- [x] **Phase C (Drying & Conversion)**: Post-process the sol-gel output to remove water and hydrogen, preparing a dry, charge-balanced $\text{SiO}_2$ network.
+- [x] **Phase D (Calcination)**: Run accelerated MD with PLUMED2 well-tempered metadynamics to transition amorphous silica to cristobalite/tridymite.
 - [ ] **Phase E (Post-Processing & Analysis)**:
   - [ ] Compute powder X-ray diffraction (XRD) profiles using the Debye scattering formula.
   - [ ] Analyze per-atom Steinhardt parameters ($Q_4, Q_6$) to quantify crystalline polymorph fractions.
@@ -113,32 +113,40 @@ mpirun -np 16 lmp -in solgel_reaxff.in -var pH 7.0 -var seed 12345
 ---
 
 ### Phase 3: Dry & Convert to Pure $\text{SiO}_2$ (Phase C)
-Remove all water molecules and strip hydrogen atoms to prepare a clean amorphous $\text{SiO}_2$ network for Vashishta MD.
-```bash
-cd ../scripts
+Remove all water molecules, strip hydrogen atoms, and enforce perfect stoichiometry to prepare a clean, charge-neutral $\text{SiO}_2$ network for Vashishta MD.
 
-# Run stripping on the sol-gel output file
-python strip_hydrogen.py ../simulations/data.solgel_pH7.0.final -o ../simulations/data.vash_pH7.0
-```
-* **Output**: Generates the Vashishta-compatible structure file `data.vash_pH7.0` (types: 1=Si, 2=O; charges set to 0.0).
+1. **Strip Hydrogen & Water**:
+   ```bash
+   cd ../scripts
+   # Run stripping on the sol-gel output file
+   python strip_hydrogen.py ../simulations/out/data.solgel_pH7.0.final --output ../simulations/out/data.vash_vashishta_pH7.0
+   ```
+
+2. **Enforce Perfect Stoichiometry (Strip Excess Oxygen)**:
+   Sol-gel output leaves uncondensed silanol (Si-OH) groups. Stripping just H leaves excess O (making the system non-stoichiometric, e.g., $\text{SiO}_{2.98}$). With fixed charges in Vashishta (Si=+1.6, O=-0.8), this causes a massive net negative charge and a violent Coulomb explosion (+12 GPa pressure). `strip_oxygen.py` randomly trims Non-Bridging Oxygens until the ratio is exactly 1:2.
+   ```bash
+   python strip_oxygen.py ../simulations/out/data.vash_vashishta_pH7.0 ../simulations/out/data.vash_vashishta_pH7.0
+   ```
+* **Output**: Generates the Vashishta-compatible structure file `data.vash_vashishta_pH7.0` (exactly 300 atoms, perfectly neutral).
 
 ---
 
 ### Phase 4: Calcination with Metadynamics (Phase D - Vashishta + PLUMED2)
-Perform well-tempered metadynamics to accelerate crystallization under calcination conditions ($1173\text{ K}$).
+Perform well-tempered metadynamics in the NPT ensemble ($1173\text{ K}$, $1.0\text{ atm}$) to allow proper box volume contraction and accelerate crystallization towards cristobalite.
 
-1. **Generate the PLUMED index file** containing Silicon atom IDs (needed to restrict Steinhardt order parameter calculation to the Si sub-lattice):
+1. **Generate the PLUMED index file** containing Silicon atom IDs:
    ```bash
    # From the scripts directory:
-   python gen_plumed_ndx.py ../simulations/data.vash_pH7.0 -o ../simulations/si_atoms.ndx
+   python gen_plumed_ndx.py ../simulations/out/data.vash_vashishta_pH7.0 -o ../simulations/si_atoms.ndx
    ```
 
 2. **Run calcination**:
    ```bash
    cd ../simulations
-   mpirun -np 16 lmp -in calcination_metad.in -var pH 7.0 -var seed 54321
+   # Best to submit this via SLURM as it takes several hours
+   sbatch --job-name=calc_pH7.0 --output=out/slurm_calc_pH7.0_%j.out submit_calcination.sh 7.0
    ```
-* **Output**: Generates the calcined structure `data.calc_pH7.0.final`, trajectory `dump.calc_pH7.0.lammpstrj`, and PLUMED outputs `COLVAR` and `HILLS`.
+* **Output**: Generates the calcined structure `data.calc_pH7.0.final`, trajectory `dump.calc_pH7.0.lammpstrj`, and PLUMED outputs `COLVAR_pH7.0` and `HILLS_pH7.0`.
 
 ---
 
