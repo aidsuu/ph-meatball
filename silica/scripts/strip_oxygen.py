@@ -7,30 +7,20 @@ def strip_excess_oxygen(input_file, output_file):
     with open(input_file, 'r') as f:
         lines = f.readlines()
 
-    header = []
+    header_lines = []
     atoms = []
-    masses_lines = []
     
-    reading_atoms = False
-    reading_masses = False
+    in_atoms = False
     
     for line in lines:
-        if line.strip() == "Masses":
-            reading_masses = True
-            reading_atoms = False
-            masses_lines.append(line)
-            continue
-        elif line.strip() == "Atoms # charge":
-            reading_atoms = True
-            reading_masses = False
-            header.append(line)
+        if line.strip().startswith("Atoms"):
+            header_lines.append(line)
+            in_atoms = True
             continue
             
-        if reading_masses:
-            masses_lines.append(line)
-            if line.strip() == "":
-                reading_masses = False
-        elif reading_atoms:
+        if not in_atoms:
+            header_lines.append(line)
+        else:
             parts = line.split()
             if len(parts) >= 6:
                 try:
@@ -40,12 +30,11 @@ def strip_excess_oxygen(input_file, output_file):
                     x, y, z = float(parts[3]), float(parts[4]), float(parts[5])
                     atoms.append((atom_id, atom_type, q, x, y, z))
                 except ValueError:
-                    header.append(line)
+                    if len(atoms) == 0:
+                        header_lines.append(line)
             else:
                 if len(atoms) == 0:
-                    header.append(line)
-        else:
-            header.append(line)
+                    header_lines.append(line)
 
     si_atoms = [a for a in atoms if a[1] == 1]
     o_atoms = [a for a in atoms if a[1] == 2]
@@ -77,45 +66,33 @@ def strip_excess_oxygen(input_file, output_file):
         else:
             o_bo.append(o_atoms[i])
 
-    # Try to keep all BOs
     kept_o = list(o_bo)
-    
-    # Shuffle NBOs to remove randomly
-    random.seed(42) # For reproducibility
+    random.seed(42)
     random.shuffle(o_nbo)
     
-    # We need (target_o - len(kept_o)) more oxygen atoms
     needed = target_o - len(kept_o)
     
     if needed > 0:
         if needed <= len(o_nbo):
             kept_o.extend(o_nbo[:needed])
         else:
-            # If we need more than we have NBOs, take all NBOs and some free O
             kept_o.extend(o_nbo)
             needed_free = needed - len(o_nbo)
             random.shuffle(o_free)
             kept_o.extend(o_free[:needed_free])
 
     final_atoms = si_atoms + kept_o
-    # Sort by ID to maintain some order, though renumbering
     final_atoms.sort(key=lambda a: a[0])
     
-    # Update header counts
-    new_header = []
-    for line in header:
+    # Update header
+    for i, line in enumerate(header_lines):
         if "atoms" in line and "Atoms" not in line:
-            new_header.append(f"{len(final_atoms)} atoms\n")
-        else:
-            new_header.append(line)
+            header_lines[i] = f"{len(final_atoms)} atoms\n"
 
     with open(output_file, 'w') as f:
-        for line in new_header:
+        for line in header_lines:
             f.write(line)
-        for line in masses_lines:
-            f.write(line)
-        
-        # Write Atoms block
+        f.write("\n")
         for i, a in enumerate(final_atoms):
             new_id = i + 1
             f.write(f"{new_id} {a[1]} {a[2]:.4f} {a[3]:.6f} {a[4]:.6f} {a[5]:.6f}\n")
