@@ -7,12 +7,13 @@ LAMMPS data file - Pure SiO2 from sol-gel (pH 6), Vashishta format
 0.000000 27.000000 ylo yhi
 0.000000 27.000000 zlo zhi
 
+Masses
+
 1 28.0855  # Si
 2 15.9994  # O
 
 Atoms # charge
 
-Masses
 
 1 2 0.0000 5.811567 2.947962 0.632144
 2 1 0.0000 0.968833 4.475717 6.173866
