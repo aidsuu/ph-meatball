@@ -89,6 +89,9 @@ def strip_excess_oxygen(input_file, output_file):
         if "atoms" in line and "Atoms" not in line:
             header_lines[i] = f"{len(final_atoms)} atoms\n"
 
+    while header_lines and header_lines[-1].strip() == "":
+        header_lines.pop()
+
     with open(output_file, 'w') as f:
         for line in header_lines:
             f.write(line)
