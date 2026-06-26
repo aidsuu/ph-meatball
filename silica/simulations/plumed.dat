@@ -27,14 +27,19 @@ si_atoms: GROUP NDX_FILE=si_atoms.ndx NDX_GROUP=si
 
 # ── Steinhardt Order Parameters ─────────────────────────────────────────────
 # q4 for each Si atom: captures cubic (cristobalite) vs hexagonal (tridymite)
-q4: Q4 SPECIES=si_atoms SWITCH={RATIONAL R_0=0.35 D_MAX=0.80 NN=12 MM=24} VMEAN
+q4: Q4 SPECIES=si_atoms SWITCH={RATIONAL R_0=0.35 D_MAX=0.80 NN=12 MM=24}
 
 # Q6 for each Si atom: general crystallinity measure
-q6: Q6 SPECIES=si_atoms SWITCH={RATIONAL R_0=0.35 D_MAX=0.80 NN=12 MM=24} VMEAN
+q6: Q6 SPECIES=si_atoms SWITCH={RATIONAL R_0=0.35 D_MAX=0.80 NN=12 MM=24}
+
+# ── Averaged Local Bond Order Parameters (Lechner & Dellago) ────────────────
+# Averages the q4 and q6 of an atom with its neighbors to remove thermal noise
+lq4: LOCAL_AVERAGE SPECIES=q4 SWITCH={RATIONAL R_0=0.35 D_MAX=0.80 NN=12 MM=24} MEAN
+lq6: LOCAL_AVERAGE SPECIES=q6 SWITCH={RATIONAL R_0=0.35 D_MAX=0.80 NN=12 MM=24} MEAN
 
 # ── Well-Tempered Metadynamics ──────────────────────────────────────────────
 metad: METAD ...
-    ARG=q4.vmean,q6.vmean
+    ARG=lq4.mean,lq6.mean
     PACE=500                  # Deposit Gaussian every 500 steps (0.5 ps)
     HEIGHT=30.0               # Initial Gaussian height (kJ/mol) — aggressively forcing crystallization
     SIGMA=0.02,0.02           # Gaussian width for Q4, Q6 - wider for smoother bias
@@ -47,4 +52,4 @@ metad: METAD ...
 ...
 
 # ── Print CVs ───────────────────────────────────────────────────────────────
-PRINT ARG=q4.vmean,q6.vmean,metad.bias STRIDE=500 FILE=out/COLVAR FMT=%8.4f
+PRINT ARG=lq4.mean,lq6.mean,metad.bias STRIDE=500 FILE=out/COLVAR FMT=%8.4f
