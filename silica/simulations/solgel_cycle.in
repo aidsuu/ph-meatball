@@ -1,0 +1,24 @@
+variable        pH    index 7.0
+
+units           real
+atom_style      charge
+boundary        p p p
+
+read_data       current_pH${pH}.data
+
+pair_style      reaxff NULL safezone 10.0 mincap 1000
+pair_coeff      * * ../potentials/ffield.reax.SiOH Si O H
+
+fix             qeq all qeq/reaxff 1 0.0 10.0 1.0e-5 reaxff
+neighbor        2.0 bin
+neigh_modify    every 1 delay 0 check yes
+
+timestep        0.1
+thermo          500
+
+# NPT at 2000K to allow condensation and box contraction after water deletion
+fix             my_npt all npt temp 2000.0 2000.0 100.0 iso 1.0 1.0 1000.0
+run             200000  # 20 ps
+unfix           my_npt
+
+write_data      current_pH${pH}.data

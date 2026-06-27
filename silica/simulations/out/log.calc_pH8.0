@@ -1,0 +1,86 @@
+
+dump            traj all custom 5000 out/dump.calc_pH${pH}.lammpstrj id type x y z
+dump            traj all custom 5000 out/dump.calc_pH8.0.lammpstrj id type x y z
+dump_modify     traj sort id
+
+# ── Phase 1: Gradual compression to amorphous SiO₂ density ─────────────────
+# After stripping H/H₂O, box is 27³ Å with ~400 atoms → density too low.
+# Target: 20³ Å → density ~1.57 g/cm³ (reasonable for porous amorphous SiO₂).
+# Compress slowly in 2 stages to avoid atom overlap.
+print "=== Energy Minimization to relax healed topology ==="
+=== Energy Minimization to relax healed topology ===
+minimize        1.0e-4 1.0e-6 100 1000
+
+CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE
+
+Your simulation uses code contributions which should be cited:
+
+- Type Label Framework: https://doi.org/10.1021/acs.jpcb.3c08419
+
+@Article{Gissinger24,
+ author = {Jacob R. Gissinger, Ilia Nikiforov, Yaser Afshar, Brendon Waters, Moon-ki Choi, Daniel S. Karls, Alexander Stukowski, Wonpil Im, Hendrik Heinz, Axel Kohlmeyer, and Ellad B. Tadmor},
+ title = {Type Label Framework for Bonded Force Fields in LAMMPS},
+ journal = {J. Phys. Chem. B},
+ year =    2024,
+ volume =  128,
+ number =  13,
+ pages =   {3282–-3297}
+}
+
+CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE
+
+Neighbor list info ...
+  update: every = 1 steps, delay = 0 steps, check = yes
+  max neighbors/atom: 2000, page size: 100000
+  master list distance cutoff = 12
+  ghost atom cutoff = 12
+  binsize = 6, bins = 31 31 31
+  1 neighbor lists, perpetual/occasional/extra = 1 0 0
+  (1) pair vashishta, perpetual
+      attributes: full, newton on
+      pair build: full/bin/atomonly
+      stencil: full/bin/3d
+      bin: standard
+Per MPI rank memory allocation (min/avg/max) = 6.993 | 6.994 | 6.994 Mbytes
+   Step          Temp          Press          PotEng         KinEng         TotEng        Density         Volume        Atoms   
+         0   0              534.07947     -760.2548       0             -760.2548       0.0015604953   6393546.2            300 
+        76   0              1.1999015     -2051.5579      0             -2051.5579      0.0015604953   6393546.2            300 
+Loop time of 0.00619602 on 48 procs for 76 steps with 300 atoms
+
+83.1% CPU use with 12 MPI tasks x 4 OpenMP threads
+
+Minimization stats:
+  Stopping criterion = energy tolerance
+  Energy initial, next-to-last, final = 
+     -760.254804741451  -2051.35839534298   -2051.5578867571
+  Force two-norm initial, final = 3565.6456 5.383313
+  Force max component initial, final = 1199.2232 1.5220203
+  Final line search alpha, max atom move = 0.035769533 0.054441956
+  Iterations, force evaluations = 76 111
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 3.4148e-05 | 0.00092057 | 0.0037288  |   0.0 | 14.86
+Neigh   | 1.2262e-05 | 2.9438e-05 | 5.9765e-05 |   0.0 |  0.48
+Comm    | 0.0008542  | 0.0032786  | 0.0045236  |   2.0 | 52.91
+Output  | 0          | 0          | 0          |   0.0 |  0.00
+Modify  | 0          | 0          | 0          |   0.0 |  0.00
+Other   |            | 0.001967   |            |       | 31.75
+
+Nlocal:             25 ave          64 max           4 min
+Histogram: 1 2 2 3 2 1 0 0 0 1
+Nghost:        26.5833 ave          51 max          15 min
+Histogram: 2 4 1 1 1 1 0 1 0 1
+Neighs:              0 ave           0 max           0 min
+Histogram: 12 0 0 0 0 0 0 0 0 0
+FullNghs:        259.5 ave        1174 max           6 min
+Histogram: 6 0 4 1 0 0 0 0 0 1
+
+Total # of neighbors = 3114
+Ave neighs/atom = 10.38
+Neighbor list builds = 4
+Dangerous builds = 0
+reset_timestep  0
+ERROR: Cannot reset timestep with active dump - must undump first (src/output.cpp:641)
+Last command: reset_timestep  0

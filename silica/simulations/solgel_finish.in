@@ -1,0 +1,28 @@
+variable        pH    index 7.0
+
+units           real
+atom_style      charge
+boundary        p p p
+
+read_data       current_pH${pH}.data
+
+pair_style      reaxff NULL safezone 10.0 mincap 1000
+pair_coeff      * * ../potentials/ffield.reax.SiOH Si O H
+
+fix             qeq all qeq/reaxff 1 0.0 10.0 1.0e-5 reaxff
+neighbor        2.0 bin
+neigh_modify    every 1 delay 0 check yes
+
+timestep        0.1
+thermo          500
+
+fix             nvt_cool all nvt temp 2000.0 300.0 100.0
+run             80000
+unfix           nvt_cool
+
+fix             nvt_final all nvt temp 300.0 300.0 100.0
+run             20000
+unfix           nvt_final
+
+write_data      out/data.solgel_pH${pH}.final
+write_restart   out/restart.solgel_pH${pH}.final

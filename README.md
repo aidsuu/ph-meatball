@@ -4,7 +4,8 @@
 This project simulates the sol-gel synthesis and subsequent high-temperature calcination of silica ($\text{SiO}_2$) to study how pH affects the resulting crystal structures. By varying the initial ratio of protonated to deprotonated silanol groups, we model the chemical environment corresponding to different pH conditions (pH 6.0–8.0).
 
 To overcome the challenges of simulating complex chemical reactions and long crystallization timescales, this project employs a **hybrid MD strategy**:
-1. **Sol-Gel Condensation (ReaxFF)**: Captures the chemical reactions (bond-breaking/forming) of the sol-gel process where orthosilicic acid molecules condense to form a silica network and water byproducts.
+1. **Sol-Gel Condensation (ReaxFF)**: Captures the chemical reactions (bond-breaking/forming) of the sol-gel process where orthosilicic acid molecules condense to form a silica network. 
+   > **Note on Methodology**: Standard closed-box NVT MD fails to form a silica gel from monomers because trapped water byproducts shift the chemical equilibrium toward hydrolysis (Le Chatelier's principle). To overcome this and preserve pH kinetics, we employ a **"Cyclic Evaporation"** approach—periodically interrupting the ReaxFF simulation to forcefully delete free water molecules, driving complete polycondensation into a continuous random network (CRN).
 2. **Calcination (Vashishta + PLUMED2 Metadynamics)**: Simulates calcination at $900^\circ\text{C}$ ($1173\text{ K}$) using the fast, accurate Vashishta potential. Crystallization is accelerated using well-tempered metadynamics with Steinhardt order parameters ($Q_4$ and $Q_6$) as Collective Variables.
 
 ---
@@ -98,36 +99,32 @@ python structures/build_precursor.py --n-silica 100 --density 1.0 --seed 42
 
 ### Phase 2: Sol-Gel Condensation (Phase B - ReaxFF MD)
 Run reactive MD to simulate the condensation reaction $\text{Si-OH} + \text{HO-Si} \rightarrow \text{Si-O-Si} + \text{H}_2\text{O}$ at high temperature.
-*Note: The simulation automatically compresses the initial low-density gas mist ($0.57\ \text{g/cm}^3$) into a dense liquid ($1.4-1.5\ \text{g/cm}^3$) via `fix deform` before heating to $2000\text{ K}$, ensuring physical collisions and preventing vaporization.*
+*Note: Due to Le Chatelier's Principle, high concentrations of water in a closed NVT box prevent gelation. To counter this, we use a **Cyclic Evaporation** script that runs ReaxFF in short bursts (e.g., 20 ps), pausing to use Python to identify and delete free $\text{H}_2\text{O}$ molecules, before resuming. This mimics realistic drying and forces the sol to condense into a complete silica gel while preserving pH-dependent kinetics.*
+
 ```bash
 cd simulations
 
-# Run the ReaxFF simulation for a specific pH (e.g., pH 7.0)
-mpirun -np 16 lmp -in solgel_reaxff.in -var pH 7.0 -var seed 12345
+# Run the Cyclic Evaporation Sol-Gel script (currently being developed)
+# This will orchestrate LAMMPS and Python sequentially
+./run_cyclic_solgel.sh 7.0
 ```
 * **Variables**:
-  * `-var pH`: Specifies the input structure (`data.pH_X.Y`) to load.
-  * `-var seed`: Velocity initialization seed.
-* **Output**: Generates `data.solgel_pH7.0.final` and species logs in the `simulations/` directory.
+  * `7.0`: Specifies the pH level to run.
+* **Output**: Generates `data.solgel_pH7.0.final` and trajectory/logs containing the fully condensed network in the `simulations/` directory.
 
 ---
 
 ### Phase 3: Dry & Convert to Pure $\text{SiO}_2$ (Phase C)
-Remove all water molecules, strip hydrogen atoms, and enforce perfect stoichiometry to prepare a clean, charge-neutral $\text{SiO}_2$ network for Vashishta MD.
+Remove all hydrogen/water molecules, and perfectly heal any remaining non-bridging oxygens to ensure a flawless stoichiometry ($1:2$ ratio) without destroying the tetrahedral network. This prepares a clean, charge-neutral $\text{SiO}_2$ network for Vashishta MD.
 
-1. **Strip Hydrogen & Water**:
-   ```bash
-   cd ../scripts
-   # Run stripping on the sol-gel output file
-   python strip_hydrogen.py ../simulations/out/data.solgel_pH7.0.final --output ../simulations/out/data.vash_vashishta_pH7.0
-   ```
+```bash
+cd ../scripts
+# Run the topology healing script on the sol-gel output file
+python heal_topology.py ../simulations/out/data.solgel_pH7.0.final ../simulations/out/data.vash_vashishta_pH7.0
+```
+*Note: Previously, 'strip_oxygen.py' randomly deleted excess oxygens, which catastrophically broke the tetrahedral structure into $\text{SiO}_3$ defects, triggering Coulomb explosions in Vashishta. The new `heal_topology.py` pairs up any leftover Non-Bridging Oxygens and geometrically merges them into Si-O-Si bridges, ensuring structural perfection and exact 1:2 stoichiometry.*
 
-2. **Enforce Perfect Stoichiometry (Strip Excess Oxygen)**:
-   Sol-gel output leaves uncondensed silanol (Si-OH) groups. Stripping just H leaves excess O (making the system non-stoichiometric, e.g., $\text{SiO}_{2.98}$). With fixed charges in Vashishta (Si=+1.6, O=-0.8), this causes a massive net negative charge and a violent Coulomb explosion (+12 GPa pressure). `strip_oxygen.py` randomly trims Non-Bridging Oxygens until the ratio is exactly 1:2.
-   ```bash
-   python strip_oxygen.py ../simulations/out/data.vash_vashishta_pH7.0 ../simulations/out/data.vash_vashishta_pH7.0
-   ```
-* **Output**: Generates the Vashishta-compatible structure file `data.vash_vashishta_pH7.0` (exactly 300 atoms, perfectly neutral).
+* **Output**: Generates the Vashishta-compatible structure file `data.vash_vashishta_pH7.0` (exactly neutral with $+1.6$ and $-0.8$ fixed charges).
 
 ---
 

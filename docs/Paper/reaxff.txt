@@ -1,0 +1,1146 @@
+Article
+pubs.acs.org/JPCC
+
+ReaxFF Molecular Dynamics Simulations of Hydroxylation Kinetics
+for Amorphous and Nano-Silica Structure, and Its Relations with
+Atomic Strain Energy
+Jejoon Yeon† and Adri C. T. van Duin*,†,‡
+†
+
+Department of Mechanical and Nuclear Engineering, The Pennsylvania State University, University Park, Pennsylvania 16802,
+United States
+‡
+Materials Research Institute, The Pennsylvania State University, University Park, Pennsylvania 16802, United States
+S Supporting Information
+*
+
+ABSTRACT: We performed reactive force ﬁeld molecular dynamics simulation to observe the
+hydrolysis reactions between water molecules and locally strained SiO2 geometry. We
+optimized the force ﬁeld from J. Fogarty et al. 2010, to more accurately describe the
+hydroxylation reaction barrier for strained and nonstrained SiO structures, which are about
+20 and 30 kcal/mol, respectively. After optimization, energy barrier for the hydroxylation
+shows a good agreement with DFT data. The observation of silanol formation at the highstrain region of a silica nanorod also supports the concept that the adsorption of water
+molecule: hydroxyl formation favors the geometry with higher strain energy. In addition, we
+found three distinct hydroxylation pathsH3O+ formation reaction from the adsorbed water,
+proton donation from H3O+, and the direct dissociation of the adsorbed water molecule.
+Because water molecules and their hydrogen bond network behave diﬀerently with respect to
+temperature ranges, silanol formation is also aﬀected by the temperature. The formation of
+surface hydroxyl in an amorphous silica double slit displays a similar tendency: SiOH formation
+prefers high-strain sites. Silanol formation related with H3O+ formation and dissociation is
+observed in hydroxylation of amorphous SiO2, similar to the results from silica nano wire simulation. These results are
+particularly relevant to the tribological characteristics of surfaces, enabling the prediction of the attachment site of the lubrication
+ﬁlm on silica surfaces with a locally strained geometry.
+
+1. INTRODUCTION
+Since amorphous silica is one of the most abundant materials
+on the surface of the planet Earth, many scientists and
+engineers studied silica and silicon related system. From the
+earliest days of history to the modern technologic era, silica has
+been an important material for various applications, such as
+glass, wafer, electronic devices, and nanotech devices.1−4
+In addition, among all the studies related with silicon, silica−
+water interaction has been a central research topic, due to its
+importance and inﬂuence on theoretical science and practical
+applications. More importantly, the silica/water combination is
+very inexpensive and ubiquitous, which is why silica−water has
+often been preferred by researchers compared to other
+chemical combinations present in the natural environment.5,6
+Many studies have been performed to understand the interfacial
+surface chemistry regarding water−silica system, such as how
+surface silicon-hydroxyls modulate interfacial properties, or how
+this chemistry is aﬀected by surface characteristics,7,8 or by the
+eﬀect of tensile or compressive stress on reaction between silica
+surface and water.9
+The hydrolysis reaction between water and the silica surface
+is initiated by physisorption of the water molecule onto the
+surface, followed by its dissociation and chemisorption as a
+hydroxyl group. Hydroxyls on the surface are known to greatly
+© 2015 American Chemical Society
+
+modify surface properties, due to their unique ability to form
+hydrogen bond networks. It has been observed that undercoordinated surface atoms and strained sites are responsible for
+structural deformation, such as crack formation, corrosion, or
+other surface chemistry. Similarly, hydrolysis reaction also
+favors defects and holes on the surface.10
+A signiﬁcant research eﬀort has been executed to understand
+and utilize silanols and SiOH-related surface activity. Recent
+experimental techniques, such as XANES, are capable of in situ
+measuring of electronic structure at the silica-liquid interface.11
+NMR and IR spectroscopy on silica surface expanded the
+understanding of various types of silanols.12 However,
+experimental approaches are often not appropriate to represent
+surface topography and surface structure information in the
+atomic size scale, and on the picosecond time-scale connected
+with chemical reactions.
+Computational chemistry methods enable us to simulate and
+visualize the processes of chemical reactions as well as track the
+behavior of atoms and molecules during reaction. Ab initio
+simulations have been applied to compute the water−silica
+Received: October 6, 2015
+Revised: December 14, 2015
+Published: December 15, 2015
+305
+
+DOI: 10.1021/acs.jpcc.5b09784
+J. Phys. Chem. C 2016, 120, 305−317
+
+Article
+
+The Journal of Physical Chemistry C
+
+Figure 1. Picture of strained Si dimer (left) and nonstrained silica dimer (right).
+
+Figure 2. (a) Energy barrier for hydroxylation on nonstrained Si dimer structure with the Fogarty force ﬁeld. (b) Energy barrier for hydroxylation on
+strained Si dimer structure with the Fogarty force ﬁeld.1
+
+system size are a signiﬁcant drawback for DFT and other ﬁrst
+principle based approaches.
+Empirical force ﬁeld methods enable us to study silica−water
+interfacial science and reaction mechanisms in a larger scale,
+because it can save a signiﬁcant amount of the computational
+cost, when compared to quantum mechanics simulations.17−20
+T. S. Mahadevan et al.21 developed a dissociative water
+potential, and represented the silanol formation on water−silica
+interface. G. K. Lockwood and S. H. Garofalini22 group’s recent
+study using dissociative potential for water molecules on the
+silicon oxide showed active proton transfer among water
+molecules and silica surface with H3O+ formation. J. Fogarty et
+al.1 proposed silica/water interaction properties using the
+ReaxFF reactive potential molecular dynamics.
+Following Garofalini and Fogarty’s observations, in this
+research, MD simulation using the ReaxFF potential for water−
+amorphous silica system was performed, which represented the
+eﬀect of strain energy on hydroxylation. Specially, strained
+silicon and oxygen atoms on the surface were closely analyzed,
+as well as undercoordinated atoms and nonbonding-oxygen.
+
+interactions by researchers, providing the clues for understanding of interfacial nature in atomic scale. For example, Y.
+He et al.9 showed the relationship between external stress and
+long-range surface water interaction, and role of other water
+molecules during reaction. Also, they predicted the predissociation adsorption of water on silica surface using a Born−
+Oppenheimer model. C. Mischler et al.13 studied silica−liquid
+interaction using a mixed classical MD and ab initio code, with
+BKS and Car−Parrinello potential, to simulate reaction on the
+surface. M. H. Du et al.14 also applied a DFT-assisted classic
+potential MD code; they revealed various trends of hydrogen
+bond network between crystal phase and amorphous phase of
+silica. They also pointed out the eﬀect of system size on
+hydration energy. Y. Ma et al.15 investigated how undercoordinated Si atoms and third-party water molecules around
+OH group lead the dissociation of adsorbed H2O molecule. F.
+Musso et al. 16 indicated that silica−water interaction
+strengthens hydrogen bonding between surface hydroxyls and
+water molecules. However, high computational cost and limit of
+306
+
+DOI: 10.1021/acs.jpcc.5b09784
+J. Phys. Chem. C 2016, 120, 305−317
+
+Article
+
+The Journal of Physical Chemistry C
+
+Section 4 discusses the analysis of number of hydroxylation
+(Figure 9), RDF of water−Si (Figure 10), and analysis of water
+clusters (Tables 1 and 2, and Figure 11), revealed the eﬀect of
+water cluster on hydrolysis reaction and hydronium formation.
+Lastly, section 5 describes the eﬀect of locally strained
+structures on amorphous SiO2 slab on hydroxylation, showing
+silanol formation favored the surface atoms with high strain
+energy (Figures 12, 13, and 14). Reaction pathways for the
+hydroxylation on slab surface are also shown. (Figures 15 and
+16). All visualizations were performed by Molden, Atomeye,
+and Ovito.23
+
+We studied a SiO2 based nanotube structure to check the force
+ﬁeld in small, highly strained geometry, and how water
+molecule interacts with and reacts to the strained site of this
+geometry. Thereafter, we investigated the surface chemistry of
+large amorphous silica structures.
+Previous computational approaches with reactive potential
+predicted the energy relation for hydroxylation, and role of
+hydronium.21,22 In this study, using ReaxFF potential, ﬁrst, we
+reparametrized the SiO-water interaction parameters, in
+order to accurately simulate the energy barrier of hydroxylation
+to silicon. Second, with the advanced force ﬁeld, ReaxFF MD
+simulation was calculated to reveal the relationship between
+atomic strain energy and hydroxylation, with smaller silica nano
+wire, and with amorphous SiO2 slab. In addition, after series of
+hydroxylation MD simulation under various temperature
+condition, and importance of 2−3 paired water dimer/
+polymers connection was observed.
+To discuss details, section 1 explains the validation and
+optimization of force ﬁeld using two Si dimer geometries
+(Figure 1). Section 2 introduces the silica nano wire (Figures
+2−4), and observation of hydroxylation on silica nano wire,
+
+2. COMPUTATIONAL DETAILSREACTIVE FORCE
+FIELD: METHOD AND OPTIMIZATION
+The ReaxFF Reactive force ﬁeld has been developed to simulate
+large system (>106 atoms) with the relatively small computational cost, with a comparable accuracy to quantum based
+simulation results.24
+ReaxFF employs a bond-order dependent concept, allowing
+formation and breaking of bonds.24 In order to calculate the
+contributions of these energies, all bond orders are calculated
+and modiﬁed at every iteration, thus allowing ReaxFF to form a
+relationship between the bond distance and the bond
+order.25−27 ReaxFF calculates nonbonded interactions among
+all atom pairs. Also, ReaxFF uses an electronegativity
+equalization model to calculate charges and polarization
+eﬀects.28,29 Initially, a ReaxFF potential was developed to
+simulate hydrocarbon based system,24 and later, the method
+was developed further for metals,30 energy and electro
+chemistry,31 etching and surface reaction,32 stress analysis of
+material,33 and graphene,34 for example.
+The quality of the parameters in the force ﬁeld is critical,
+since it determines the overall accuracy of result of simulations.
+It is essential to check and validate the credibility of the force
+ﬁeld before we start any meaningful simulation by training and
+validating against DFT or any level of quantum mechanics
+calculation. If the force ﬁeld fails to predict the expected value,
+then the parameters of the force ﬁeld should be reﬁtted with
+experimental and QM results using a training set. Typically, this
+training set contains bond dissociation/angle/torsion energies,
+equation of state, heat of formation and energy relations for
+important species, reaction barrier and reaction pathway, and
+transition state results.
+The parameters of the force ﬁelds are optimized with a
+single-parameter search algorithm.35 The error function for the
+training set, which minimizes the error values between ReaxFF
+value and QM value, is shown in eq 1
+2
+n ⎛
+Xi ,QM − Xi ,ReaxFF ⎞
+error = ∑ ⎜
+⎟ ,
+σi
+⎠
+⎝
+i
+
+i = 1, 2, 3···n
+(1)
+
+where the Xi,QM is any energy or values from experiment/
+quantum mechanics software, while the Xi,ReaxFF is the values
+from ReaxFF calculation, σi is the weight value assigned to each
+data point. Experimental or quantum mechanics data for force
+ﬁeld training are usually gathered from literature and papers, or
+obtained from research collaborators, or calculated by using
+QM software. Typically, well trained parameters of ReaxFF
+should reach the comparable level of energy values when
+compared to QM or experimental values, within 2 kcal/mol for
+important heat of formation or energy curves/relations, and 5
+kcal/mol for general reaction barriers.
+
+Figure 3. (a) Energy barrier for hydroxylation of the nonstrained silica
+dimer structure for the SiO-2015 force ﬁeld. (b) Energy barrier for
+hydroxylation of the strained silica dimer structure for the SiO-2015
+force ﬁeld.
+
+which prefers the strained edge sites (Figure 5). In section 3,
+representative examples for three distinctive reaction pathways
+around strained sites are shown: (i) hydroxylation involving
+formation of H3O+ (Figure 6), (ii) hydroxylation involving
+dissociation of H3O+ (Figure 7), and (iii) hydroxylation
+involving dissociation of adsorbed water molecule (Figure 8).
+307
+
+DOI: 10.1021/acs.jpcc.5b09784
+J. Phys. Chem. C 2016, 120, 305−317
+
+Article
+
+The Journal of Physical Chemistry C
+
+Figure 4. (a) Silica nano rod in the 200 water molecules in the 30 × 30 × 30 Å3 periodic box. Water density was 0.222 kg/dm3. (b) Silica nano wire.
+Gray atoms are Si atoms, and Red atoms are Oxygens. (c) Relative strain energy (kcal/mol) view of silica nanowire. Red atoms represent higher
+strained atoms, blue atoms mean lower strain energy ones.
+
+barrier for silanol formation varies with strained geometric
+conditions. As shown in Figure 1, we prepared two geometries
+of a silica dimer: One has the 4-membered SiOSiO ring
+structure with a high strained energy, and the other has only
+one bridge oxygen with relatively low strain energy. All DFT
+calculations were carried out using B3LYP functional with the
+6-311++G(d,p) basis set. To calculate the energy barrier using
+DFT, ﬁrst we calculated transient state for the hydroxylation,
+and applied internal coordinate search to check reaction
+pathways. Then the bond distance scan was applied to get
+energies for each points. ReaxFF potential developed by J.
+Fogarty et al.1 was applied to check the ReaxFF hydroxylation
+energy barrier. As a result, energy barriers calculated by
+previous SiO-water interaction parameters1 were shown to
+be slightly insuﬃcient when compared to DFT result. Figure
+2(a and b) presents the energy curves as a water molecule
+approaches one of Si atoms of the strained and nonstrained
+silica dimer structure, respectively. Both hydroxylation reactions
+are initiated by adsorption of water molecule to a Si atom of
+dimer, and proton donation occurs to the bridge oxygen. Then,
+one of the SiO bonds breaks, forming a system with 2 silanol
+groups. As we can see in Figure 2(a), the energy curve for a
+nonstrained silica dimer correctly followed the energy curve
+from DFT. However, for strained SiO ring structure, the
+energy barrier in Figure 2(b) for hydroxylation was underestimated when compared to that of DFT, indicating easier
+hydroxylation for strained structure, for the force ﬁeld for Si
+O-water interaction from J. Fogarty et al.1
+
+Figure 5. (a) Silica nanowire after 650 ps exposure at 400 K
+temperature. Five silanols are formed at the edge area. Green and blue
+atoms represents the O and H of the silanol. (b) Silica nanowire, 500
+ps exposure at 700 K temperature. All strained Si atoms at the edge
+sites are occupied by silanols.
+
+2.1. Validation and Optimization of the ReaxFF Force
+Field for Hydroxylation Reactions in Silica. Using DFT
+and ReaxFF, energy scan for the transition state was performed
+in order to examine and compare how the reaction energy
+308
+
+DOI: 10.1021/acs.jpcc.5b09784
+J. Phys. Chem. C 2016, 120, 305−317
+
+Article
+
+The Journal of Physical Chemistry C
+
+Figure 6. Snapshots of hydroxylation reaction, involving the formation of hydronium ion at 400 K. Si, O, and O of adsorbed water molecule or
+hydroxyl, H. (a) 76.21 ps after MD simulation. Adsorbed water molecule at the edge Si of silica nano wire. (b) 76.26 ps after MD simulation. One of
+the H atom of adsorbed water molecule is attracted to nearby secondary water molecule. (c) 76.265 ps after MD simulation. Proton donation
+occurred. (d) 76.32 ps after MD simulation. Formation of hydroxyl. H3O+ ion moved across the periodic boundary.
+
+nanowire’s top and bottom surfaces are opened to vacuum, thus
+creating a highly strained, SiOSi-O 4 membered ring
+structure at the edge. Figure 4(c) clearly shows the strained Si
+and O atoms at the edge area, represented by diﬀerent colors
+with a relatively higher strain energy, while the atoms in the
+body are less strained. There are total 12 of Si atoms at the
+edge of the silica nano wire, which contains higher relative
+strain energy than other Si atoms do. Average relative strain
+energy of Si atoms in nonstrained structure was 15.97 kcal/mol,
+while that of Si atoms in strained structure was 78.09 kcal/mol.
+The orthogonal periodic box has a volume of 30 × 30 × 30 Å3,
+and the density of water equals to 0.22 kg/dm3. 800 ps NVT
+MD simulations were performed by applying the Berendsen
+thermostat to all atoms in the system, with 100 fs of
+temperature damping constant, and 0.1 fs of time step. System
+temperature was set from 300 K to 1500 K, and simulations
+were performed at every 100 K. The reason behind the choice
+of wide temperature range was, ﬁrst, to check the behavior of
+water clusters as environment approaches the supercritical state
+of water vapor, and second, to reveal how the hydroxylation is
+inﬂuenced by high temperature. The simulations were
+performed at 100 K temperature intervals, to distinguish the
+eﬀect of diﬀerent temperatures.
+Initial observation of MD simulation showed that the
+hydroxyl formation was initiated from the edge area. Figure
+5(a and b) shows the pictures of silica nano wire and Silanols
+formed at the edge of the Silica nano wire, in the 400 K at 650
+ps and 700 K at 500 ps, respectively. Clearly, hydroxyl
+formation occur preferably at the strained SiO sites of silica
+nano wire, which implies that the approaching and adsorption
+
+In order to improve the ReaxFF performance for the strained
+silica dimer, we added the two DFT energy curves for
+hydroxylation on the strained silica dimer, and nonstrained
+silica dimer to the Fogarty et al. training set, 1 and
+reparameterized the force ﬁeld, generating the SiO-2015
+parameter set. Trained parameters are SiO bond and oﬀdiagonal parameters, SiOSi, OSiO, OSiSi, and
+HOSi angle parameters, and OHO hydrogen bond
+parameters. The energy curve result for two hydroxylation
+reaction after force ﬁeld optimization is shown in Figure 3(a
+and b). After parametrization, the hydroxylation energy barrier
+of new force ﬁeld is about 31 kcal/mol for nonstrained Si
+dimers, and 20 kcal/mol for strained Si dimer. Note that the
+data in Figure 3(a and b) are not corrected for zero-point
+energies (ZPE), but we evaluated ZPE for both products and
+reactants, and found that this correction is less than 1 kcal/mol.
+2.2. Application to Silica Nano Wire Hydrolysis. As a
+test of the SiO-2015 force ﬁeld, a SiO2 nanowire and 200 water
+molecules were simulated to check the relationship between
+strain energy and formation of silanol in a smaller and simpler
+system. The silica nanowire structure of this research has also
+been used in previous studies.36,37 System conﬁguration is
+shown in Figure 4(a). Figure 4(b) is the picture of silica nano
+wire, and Figure 4(c) presents the strain energy of each atom in
+silica nano wire.
+The silica nano wire in our study, which was used in previous
+research to ﬁnd the dependence of silica−water reaction,37 has
+distinctively strained region at the edge of structure. As seen in
+Figure 4(b and c), the silica nanowire, which is nonperiodic and
+hollow, consists of 36 silicon and 72 oxygen atoms. This
+309
+
+DOI: 10.1021/acs.jpcc.5b09784
+J. Phys. Chem. C 2016, 120, 305−317
+
+Article
+
+The Journal of Physical Chemistry C
+
+Figure 7. Snapshots of hydroxylation reaction, involving the dissociation of hydronium ion at 900 K. All color settings of atoms are the same as
+Figure 6. (a) 195.3 ps after MD simulation. H3O+ approaches to bridge O. (b) 195.37 ps after MD simulation. One of the H of H3O+ is attracted to
+the bridge O of strained structure. (c) 195.375 ps after MD simulation. Proton donation. (d) 195.45 ps after MD simulation. SiO bond breaks,
+and SiOH formed.
+
+an example of the formation of silanol due to the direct
+dissociation of an adsorbed water molecule, which tends to be
+observed at higher temperatures in our simulations. At 121.76
+ps (Figure 8(a)), a water molecule was adsorbed on the Si atom
+at the edge area of silica nano wire. At 121.815 ps (Figure
+8(b)), one of the H atoms at the adsorbed water approaches
+the bridge oxygen, stretching OH distance to 1.1∼1.2 Å. At
+121.82 ps (Figure 8(c)), after H moves to the bridge oxygen,
+SiO distance increases to more than 2 Å. At 121.87 ps after
+simulation (Figure 8(d)), 2 hydroxyls were formed as one of
+the SiO bonds dissociated.
+2.4. Analysis of Hydroxyl Formation with Respect to
+Diﬀerent Temperatures. Our observations from the reaction
+pathways of hydroxylation imply that there is a relationship
+among temperature, water clusters, and the kinetics of hydroxyl
+formation. Accordingly, an analysis of the reaction path for
+hydroxylation was performed to reveal the connection among
+them. Figure 9 shows the maximum number of silanols during
+each simulation. According to Figure 9, the maximum number
+of silanols during the simulations is not proportional to the
+temperature. Instead, the number of silanols shows the
+maximum number of 14 at 900 K, 1000 K, and 1100 K, and
+minimum number of 5 at 400 K. In 300 K simulation, no silanol
+formation is observed. On the basis of our observation of
+reaction kinetics from 900 K to 1100 K, 2 hydroxyls13th and
+14thare generated at the Si atom of body area of silica nano
+wire by proton donation from H3O+, only after all 12 strained
+Si atoms at the edge of the silica nano wire are fully
+hydroxylated. Time tracking of the number of silanols is
+shown in the Supporting Information (Figure S1), which
+
+of the water molecule also prefer the strained edge site of the
+silica nano wire.
+2.3. Reaction Path for Hydroxylation on the Edge
+Area of Silica Nano Wire. As G. K. Lockwood et al.22
+observed in a previous study using a dissociative potential, the
+hydronium ion plays an important role in the silanol formation
+reactions. Figure 6 describes the process of hydroxylation at
+400 K, which includes the formation of a H3O+ ion. At 76.21 ps
+(Figure 6(a)), a water molecule adsorbed to the Si atom of the
+edge of silica nano wire. At 76.26 ps (Figure 6(b)), a secondary
+water molecule closely approached the adsorbed water
+molecule. At 76.265 ps (Figure 6(c)), proton donation was
+occurred. Finally, at 76.32 ps (Figure 6(d)), a H3O+ and a
+silanol were formed. The hydronium ion, generated in Figure
+6(d), moved away from the hydroxyl group, forming a
+hydrogen bond network with other nearby water molecules
+and hydroxyls.
+In addition, dissociation of hydronium ion was also a major
+route for silanol formation. Figure 7(a−d) show an example of
+H3O+ deprotonation path at 900 K condition. At 195.3 ps
+(Figure 7(a)), a H3O+ approaches SiOSiO ring
+structure at the edge of the silica nano wire. At t = 195.37 ps
+(Figure 7(b)), one of the H+ ions of hydronium interacts with
+bridge oxygen of silica nano wire, which has a relatively high
+strain energy. At 195.375 ps (Figure 7(c)), H3O+ deprotonates
+one of H+ to the O and becomes H2O. Lastly, at 195.45 ps
+(Figure 7(d)), one of the SiO bonds is elongated, forming a
+hydroxyl and H2O molecule as a product.
+Not only hydronium ions, but also water molecules can
+induced the hydroxylation reaction, especially at higher
+temperature, (typically T > 1000K). Figure 11(a)−(c) presents
+310
+
+DOI: 10.1021/acs.jpcc.5b09784
+J. Phys. Chem. C 2016, 120, 305−317
+
+Article
+
+The Journal of Physical Chemistry C
+
+Figure 8. Snapshots of hydroxylation reaction, involving the dissociation of adsorbed water molecule at 1500 K. All color settings of atoms are the
+same as Figure 6. Water molecules, unrelated with reaction, are removed for clarity. (a) 121.76 ps after MD simulation. Adsorption of water to Si. (b)
+121.815 ps after MD simulation. One of the H of adsorbed H2O is attracted to the bridge O of strained structure. (c) 121.82 ps after MD simulation.
+Proton donation. (d) 121.87 ps after MD simulation. SiO bond breaks, and two silanols formed.
+
+resulting in no or a few water adsorption. Accordingly, the
+chance for the formation of silanols is lower than that in higher
+temperature condition. However, from 500 K to 1100 K
+(Figure 10(a and b)) a signiﬁcant increase of the ﬁrst peak of
+RDF is observed, which indicates a higher number of
+approaching of water molecules to the Si atoms. In addition,
+as temperature increases higher than 1200 K (Figure 10(c)),
+the ﬁrst peak of OwaterSinanowire RDF decreases and overall
+curve is ﬂattened. RDF among water molecules (RDF of
+OwaterOwater, Figure 10(d)) implies similar trends with the
+RDF of OwaterSinanowire. 300 K water RDF presents the
+highest ﬁrst peak, and existence of second and third peak, which
+suggests the strong hydrogen bond network among the water
+molecules. From 500 K to 1100 K of temperature, hydrogen
+bond network is weakened, as well as all peaks of RDF curves.
+After 1200 K, because of the high velocity of the water
+molecules, all hydrogen bond networks are broken, and the
+curves are greatly ﬂattened. These RDF data also support the
+existence of optimal temperature ranges for the silanol
+formation, which was suggested in Figure 9.
+However, still, it is unclear how the reaction pathways of
+hydroxylation are related with temperature. To ﬁnd this, we
+investigated how hydroxyls were formed with each temperature
+condition. Table 1 presents how silanols were formed during all
+simulations. Our observation indicated that all of reaction
+pathways generally followed the examples shown in Figures 6,
+7, and 8. According to these data, the dominant pathways for
+silanol formation are strongly aﬀected by temperature. Among
+three methods of hydroxylation, the majority of them originate
+from the reaction regarding the hydronium ion. Especially,
+
+Figure 9. Maximum number of silanols during simulation for each
+temperature after 800 ps MD simulation.
+
+explains the eﬀect of the temperature on the speed of
+hydroxylation.
+To check how water molecules behave and interact with
+silica nano wire under various temperature conditions, the RDF
+between water and Si, and RDF among waters were calculated.
+Water−Si RDF was calculated from the RDF of Owater
+Sinanowire, which is shown in Figure 10(a−c). Figure 10(d)
+shows the RDF among the water molecules.
+According to the ﬁrst peak of OwaterSinanowire RDF data,
+(positioned at RSi−O around 1.55 Å) at 300 K and 400 K
+(Figure 10(a)), water molecules hardly approach the Si atoms,
+311
+
+DOI: 10.1021/acs.jpcc.5b09784
+J. Phys. Chem. C 2016, 120, 305−317
+
+Article
+
+The Journal of Physical Chemistry C
+
+Figure 10. (a) SiOwater RDF at 300, 400, 500, and 600 K. (b) SiOwater RDF from 700 K to 1000 K. (c) SiOwater RDF from 1200 K to 1500 K.
+(d) RDF among water molecules.
+
+Table 1. Diﬀerent Types of Silanol Formation Reaction for
+Diﬀerent Temperature
+
+Table 2. Average Number of Independent Water and Weakly
+Bonded Water Clustersa
+
+temperature
+(K)
+
+total
+
+H3O+ formation
+reaction
+
+deprotonation
+from H3O+
+
+H2O
+dissociation
+
+temperature
+
+isolated
+water
+
+2
+water
+
+300
+400
+500
+600
+700
+800
+900a
+1000a
+1100a
+1200
+1300
+1400
+1500b
+
+0
+5
+12
+12
+12
+12
+14
+14
+14
+12
+8
+10
+8
+
+0
+3 (60%)
+6 (50%)
+6 (50%)
+6 (50%)
+6 (50%)
+7 (50%)
+7 (50%)
+7 (50%)
+6 (50%)
+3 (38%)
+4 (40%)
+3 (38%)
+
+0
+2 (40%)
+6 (50%)
+6 (50%)
+6 (50%)
+6 (50%)
+7 (50%)
+7 (50%)
+5 (36%)
+4 (33%)
+3 (38%)
+4 (40%)
+2 (25%)
+
+0
+0
+0
+0
+0
+0
+0
+0
+2 (14%)
+2 (17%)
+2 (24%)
+2 (20%)
+4 (37%)
+
+300
+400
+500
+600
+700
+800
+900
+1000
+1100
+1200
+1300
+1400
+1500
+
+17.8
+54.8
+95.7
+124.9
+137.7
+146.2
+151.8
+154.6
+157.8
+159.4
+162.1
+163.1
+163.4
+
+3.4
+12.5
+17.4
+18.4
+16.9
+15.7
+14.6
+14.1
+13.7
+13.3
+13.4
+13.3
+12.8
+
+3
+water
+5.2
+5.8
+4.6
+2.8
+2.3
+
+>3 water
+cluster
+
+mass of >3 water
+cluster (AMU)
+
+9.7
+17.8
+17.0
+13.6
+10.4
+6.0
+6.2
+7.6
+7.7
+8.2
+11.9
+12.3
+13.3
+
+3397.2
+2101.5
+1084.6
+593.6
+527.1
+270.0
+255.4
+334.9
+326.3
+334.2
+383.8
+392.6
+405.9
+
+a
+
+a
+
+from 300 K to 1000 K of temperature ranges, all of the silanols
+are closely related with the formation and dissociation of the
+H3O+ ion. On the other hand, silanol formation due to the
+direct dissociation of a water molecule is observed only from
+1100 K and higher temperature range. In addition, its ratio
+becomes the maximum at the 1500 K, the highest temperature
+in our study. This unimolecular silanol formation path is due to
+strong vibration of OH bond of adsorbed water molecules,
+facilitated by high temperature environment. Because of its
+
+rapid vibrational motion, once being adsorbed by silica nano
+wire, water molecules can donate their H atom to the bridge
+oxygen of silica nano wire more easily, compared to a lower
+temperature environment.
+To answer why the hydrolysis reaction pathways diﬀer with
+respect to temperature, we analyzed the cluster of water
+molecules: how many water molecules did establish hydrogen
+bond interactions? Table 2 contains the average number of
+isolated water, water clusters that consisted of two or three
+water molecules, and the larger clusters with many water
+molecules interacting in hydrogen bond networks. Using the
+
+From 900 K to 1100 K, silanol formation in the body area of silica
+nano wire was observed, by proton donation from H3O+ ion. bAt 1500
+K, one of the silanol was restored to the H2O, by H3O+ + SiOH →
+2H2O reaction.
+
+Larger cluster ranges from 4 water to 20 water molecules. The mass
+of larger cluster is an averaged value.
+
+312
+
+DOI: 10.1021/acs.jpcc.5b09784
+J. Phys. Chem. C 2016, 120, 305−317
+
+Article
+
+The Journal of Physical Chemistry C
+
+cluster are disrupted. Accordingly, the number of water dimers
+declined as temperature increases after 600 K (Table 2), and
+the number of hydroxyls also declined (Figure 9). This
+inﬂuences the pathway for hydrolysis reaction, as the ratio of
+dissociation of adsorbed water increased from 1100 K (Table
+1). On the basis of our observations of reaction path, (Figures 6
+and 7) hydrolysis reaction involving formation or dissociation
+of hydroxyl requires water dimers and neighboring waters to
+donate or to receive proton ions. In this case, the absence of
+water dimer structure induced the lack of hydroniums, which
+leads the increased number of hydroxylation by dissociation of
+water. This result is also presented in RDF data, showing the
+absence of second and third peak in water RDF curves at
+temperature greater than 1100 K (Figure 10(d)), and lower
+ﬁrst peak intensity at OwaterSinanowire RDF (Figure 10(c)).
+This RDF results also indicate the decreased number of water
+dimer structure at corresponding temperature range.
+Water dimer and large water cluster structures can survive
+and sustain their H-bond connections in the lower temperature
+range. According to the data from Table 2, at the temperature
+range from 500 K to 1000 K, the average number of water
+dimer structures was larger than that at either lower or higher
+temperatures. This implies that water molecules in such
+temperature range established more sustainable hydrogen
+bond network, which oﬀered stable supply of neighboring
+water molecules to donate or receive the proton. This results
+increased chance of hydrolysis reaction involving hydronium
+ions, as well as greater number of hydroxyls than that at
+extreme low- or high-temperature range (T < 500 K or T >
+1300 K range) RDF curves for OwaterSinanowire for temperature
+from 500 K to 1000 K (Figure 10(a, b) show a strong second
+peak around 4 Å, (g(r) > 1 at RSi−O ≈ 4.1 Å), which suggests
+strong hydrogen bond network and neighboring water
+molecules. Meanwhile, the second peak of OwaterSinanowire
+for high temperature (T > 1200 K) shows weaker intensity
+(g(r) < 1 at RSi−O ≈ 4.2 Å), which means the dissociation of
+hydrogen bond networks, and water cluster connections.
+In addition, this observation may imply the possible existence
+of the optimum temperature range for the hydrolysis reaction,
+where the reactivity of water with silica structures is maximized
+at such temperature.
+2.5. Hydroxyl Formation on Amorphous Silica Surface: ReaxFF MD Simulation Results. To check how the
+silanol formation is inﬂuenced by atomic strain energy of local
+sites on the surface, we prepared an amorphous SiO2 slab with
+
+Figure 11. Average number of isolated water molecules and water
+clusters.
+
+Figure 12. Number of silanols on the slab surface during hydroxylation
+simulation at diﬀerent temperatures.
+
+xyz trajectories of water molecules and silica nano wire from
+each 800 ps simulations, we run the single point MD
+simulations with a low bond order cutoﬀ value of 0.1. This
+enables us to distinguish the hydrogen bond networks among
+water molecules from other chemical connections. Figure 11
+shows the number of isolated water molecules, and number of
+water clusters. A water clusters consist of at least two water
+molecules.
+Observation from water cluster analysis (Table 2 and Figure
+11) implies the existence of relationship between the
+hydroxylation mechanism, temperature, and water cluster.
+First, water loses its autocatalytic reaction at high temperature
+(>1200 K), since the hydrogen bonding connections of water
+
+Figure 13. Vertical view of amorphous SiO2 surface after 300 K simulation. Red atoms are Si atoms of hydroxyls (Left). Strain energy view of surface
+Si atoms after 300 K hydroxylation simulation. (Right) Red circles represents the position of silanols. Si atoms with relatively high strain energy are
+generally become the Si of surface hydroxyl.
+313
+
+DOI: 10.1021/acs.jpcc.5b09784
+J. Phys. Chem. C 2016, 120, 305−317
+
+Article
+
+The Journal of Physical Chemistry C
+
+Figure 14. Vertical view of amorphous SiO2 surface after 500 K simulation. Red atoms are Si atoms of hydroxyls (Left). Strain energy view of surface
+Si atoms after 500 K hydroxylation simulation. (Right) Red circles represents the position of silanols. Number of hydroxyls are increased when
+compared to 300 K case, and all of them follows the position of relatively high strained surface Si atoms.
+
+Figure 15. (a) 26.57 ps after simulation. Adsorbed water on a strained silicon structure. (Red circle) Bright gray shows Si, red atoms are O, white
+atoms are H, blue atoms are O of water, and green atoms are H of water. (b) 26.66 ps after simulation. Donation of proton to the nearby water
+molecule. (Red circle). (c) 26.665 ps after simulation. Hydronium formation. (Red circle). (d) 26.95 ps after simulation. Proton hopping to other
+water molecule. (Red circle).
+
+formation of surface hydroxyl. The time variation of the
+hydroxyl number density for the simulation at 300 and 500 K is
+shown in Figure 12. Both simulations reached a steady state
+after 100 ps (300 K) and 160 ps (500 K).
+Similar to the simulation of silica nano wire with water,
+hydroxylation of a-SiO2 slab also favored atomically strained
+sites on the surface. Figures 13 and 14 show the relationship
+between silanol formation site and highly strained region of the
+surface. According to the results from both ﬁgures, the
+hydrolysis reaction clearly prefers the undercoordinated silicon
+atoms on the surface. The location of red-circled Si atoms of
+
+MD simulation. Detailed explanations behind the preparation
+of a-SiO2 slab are described in the Figures S2−S4 and Table S1.
+To evaluate the reactivity of this amorphous silica surface to
+water, 200 water molecules with a density of 0.204 kg/dm3
+were deployed between two surfaces of the amorphous silica in
+random positions, thus forming a water vapor layer of 15 Å
+thickness. The initial minimum distance among the molecules
+was maintained at 2.5 Å to prevent any overlapping. Then, the
+system was exposed to constant temperatures of 300 K and 500
+K with an NVT ensemble having 100 fs of damping constant.
+After 200 ps exposure to water molecules, we observed the
+314
+
+DOI: 10.1021/acs.jpcc.5b09784
+J. Phys. Chem. C 2016, 120, 305−317
+
+Article
+
+The Journal of Physical Chemistry C
+
+Figure 16. (a) 9.83 ps after simulation. Hydronium inside the water phase. Repeated color scheme with Figure 15. (b) 9.875 ps after simulation.
+Proton donation from hydronium to a high-strained surface bridge oxygen. (c) 9.88 ps after simulation. Unstable SiOHSi structure. (d) 9.925
+ps after simulation. One of SiO bond breaks, forming single silanol on the surface.
+
+Figures 13 and 14 indicates the relatively strained atoms than
+other atoms, and it matches well with hydroxyl formation sites.
+We observed that not only the undercoordinated atoms but
+also the fully coordinated atoms with high local strain energy
+are responsible for hydroxyl formation.
+Under 300 and 500 K conditions, hydroxylation pathway on
+the a-SiO2 slab was also similar to silica nano wire case: H3O+
+ions participated in the hydrolysis reaction. Figure 15 shows the
+formation of silanol and hydronium molecules on the surface of
+the amorphous SiO2 slab, and proton donation from the
+hydronium molecules by the hopping process. The proton ions
+in our simulation approximately survive less than 100 fs of time,
+according to averaged lifetime of all protons during our
+simulations. The most probable destination of hydrogen ion
+was a neighboring water molecule forming another hydronium,
+thus experiencing a proton hopping process. At 26.57 ps
+(Figure 15(b)), hydroxylation starts from the adsorbed water
+molecule. At 26.66 ps (Figure 15), adsorbed water molecule
+donates its proton ion to the nearby water molecule. At 26.665
+ps (Figure 15(c)), hydronium ion is formed. At 26.95 ps
+(Figure 15(d)), hydronium is dissociated and one H atom
+migrates to the next water molecule, closely placed by hydrogen
+bond network. After successive hopping, proton forms another
+silanol, forming hydroxyl on the surface.
+In addition, we observed that the donation of a proton to the
+bridge oxygen atom at surface is also related to the strain
+energy of the oxygen atom. Due to prolonged SiO bonds on
+the amorphous surface, related Si and O atoms on such sites
+have higher strain energy, which creates a favorable environ-
+
+ment for water and hydronium to donate their protons. Figure
+16 shows the relationships between the hydroxyl formation site
+and the strained oxygen atom contour of the surface. At 9.83 ps
+(Figure 16(a)), hydronium approached close to the surface. At
+9.875 ps (Figure 16(b)), proton migrated to the strained Si
+OSi structure on the surface from H3O+ ion. At 9.88 ps
+(Figure 16(c)), SiOHSi structure was formed. On the
+basis of our observation, SiOHSi structure was very
+unstable, so that its survival time was within ∼50 fs maximum.
+Subsequently, at 9.925 ps after simulation (Figure 16(d)), this
+structure was dissociated into a single silanol and an
+undercoordinated Si atom, which becomes a new favorable
+site for additional hydroxyl formation on the surface.
+
+3. CONCLUSIONS
+We performed ReaxFF-based molecular dynamics (MD)
+simulations for hydrolysis reactions on the SiO2/water
+interface, using both silica nano wire and an amorphous silica
+slab. First, we provided additional data for the validation of the
+ReaxFF SiO2/water model, by comparison with experimental
+results and DFT data. Speciﬁcally, the energy barrier for the
+hydroxylation for both strained silica dimer and nonstrained
+silica dimer is added to the training set, resulting in more
+reliable description for the hydroxylation reaction. After
+retraining, both ReaxFF and DFT showed 20 and 30 kcal/
+mol of energy barrier for the hydroxylation on the strained and
+nonstrained silica dimer, respectively.
+These results indicate that the hydroxylation reaction is more
+favorable for strained silica compared to that at a nonstrained
+315
+
+DOI: 10.1021/acs.jpcc.5b09784
+J. Phys. Chem. C 2016, 120, 305−317
+
+Article
+
+The Journal of Physical Chemistry C
+Notes
+
+local environment. We observed that a highly strained edge area
+is preferentially responsible for silanol formation, rather than
+the lower-strain silicon atoms in the body of the nano wire.
+In addition, we detected three speciﬁc hydroxylation paths.
+First, we observed the silanol formation initiated from adsorbed
+water molecule, forming a hydronium ion by donating its
+proton to a nearby water molecule, leaving silanol on the
+surface, and formingusually solvatedH3O+ as a product.
+The second path for silanol formation was the dissociation of
+hydronium ion. A H3O+, formed in the ﬁrst method of silanol
+formation, donates one of H ions to the bridge oxygen on the
+surface, creating silanol on the donated spot, and leaving a
+water molecule as a product. The third method of silanol
+formation was the direct dissociation of an adsorbed water
+molecule. After adsorption, one of the H of SiH2O moves to
+bridge oxygen, forming two silanols at once.
+We observed a strong relationship between the temperature
+of system, the reaction pathway for the hydroxylation, and the
+existence of water clusters. Our result implies that high
+temperatures (>1200K) induced the dissociation of hydrogen
+bond network, as well as water cluster structures. This indicates
+that the reduced number of hydronium ions, and direct
+dissociation of adsorbed water molecule become major
+hydrolysis pathway at such temperature. Meanwhile, from
+500 K to 1000 K of the temperature range, the existence of
+water dimer and nearby water molecules played important role
+on hydrolysis reaction involving H3O+ ions. Due to water
+clusters, water molecules easily ﬁnd the targetnearby water
+moleculesfor the donation or adsorption of proton ions,
+inducing the formation and dissociation of hydronium ions.
+This may suggest the existence of optimum temperature for
+water−Si interactions.
+To investigate the trends of silanol formation on a larger
+silica structure, an amorphous SiO2 slab was prepared by
+ReaxFF simulation. Bulk properties of the surface and slabs
+were compared to and validated with the experimental results.
+MD simulations on the interaction of water molecules with the
+amorphous silica slab conﬁrm that the hydroxyl groups on the
+silica surface favor the locally strained SiO2 structure and
+undercoordinated silicon atoms. The comparison between the
+surface strain energy map and silanol formation map supports
+this phenomenon; the silanol formation sites match with the
+locations of the more highly strained Si atoms. We also
+observed proton hopping events among the water molecules,
+producing reactive hydronium molecules, which can donate a
+proton to the surface oxygen atoms. Highly strained oxygen
+atoms and undercoordinated oxygen atoms can also be capable
+of receiving a proton from water. These observations agree with
+those from the simulation using the silica nano wire, as well as
+previous studies reported by other researchers.22
+
+■
+
+The authors declare no competing ﬁnancial interest.
+
+■
+
+ACKNOWLEDGMENTS
+This research is supported as part of the NSF/SI2 program, a
+National Science Foundation/Software Infrastructure for
+Sustained Innovation program, under Grant #1047857. We
+thank to Dr. C. R. Iacovella, Dr. J. Black, Dr S. Srinivasan, Dr Y.
+K. Shin, and Dr C. Junkermeier for helpful discussions and
+suggestions, and Prof. Sid Yip for providing us with the silica
+nanorod structure.
+
+■
+
+ASSOCIATED CONTENT
+
+S Supporting Information
+*
+
+The Supporting Information is available free of charge on the
+ACS Publications website at DOI: 10.1021/acs.jpcc.5b09784.
+Tracking of number of hydroxylation data, and brief
+explanation about annealing of quartz, and formation of
+amorphous SiO2 slab (PDF)
+
+■
+
+REFERENCES
+
+(1) Fogarty, J.; Aktulga, H.; Grama, A. A Reactive Molecular
+Dynamics Simulation of the Silica-Water Interface. J. Chem. Phys.
+2010, 132, 174704.
+(2) Iler, R. K. The Chemistry of Silica; John Wiley and Sons, Inc.: New
+York, 1979.
+(3) Kurkjian, C.; Krause, J. Tensile Strength Characteristics of
+“Perfect” Silica Fibers. J. Phys. Colloq. 1982, 43, 585−586.
+(4) Bunker, B. Molecular Mechanisms for Corrosion of Silica and
+Silicate Glasses. J. Non-Cryst. Solids 1994, 179, 300−308.
+(5) Tan, W.; Wang, K.; He, X.; Zhao, X. J.; Drake, T.; Wang, L.;
+Bagwe, R. P. Bionanotechnology Based on Silica Nanoparticles. Med.
+Res. Rev. 2004, 24, 621−638.
+(6) Chanthateyanonth, R.; Alper, H. The First Synthesis of Stable
+palladium(II) PCP-Type Catalysts Supported on Silicaapplication
+to the Heck Reaction. J. Mol. Catal. A: Chem. 2003, 201, 23−31.
+(7) Gaigeot, M.; Sprik, M.; Sulpizi, M. Oxide/water Interfaces: How
+the Surface Chemistry Modifies Interfacial Water Properties. J. Phys.:
+Condens. Matter 2012, 24, 124106.
+(8) Sulpizi, M.; Gaigeot, M.-P.; Sprik, M. The Silica−Water Interface:
+How the Silanols Determine the Surface Acidity and Modulate the
+Water Properties. J. Chem. Theory Comput. 2012, 8, 1037−1047.
+(9) He, Y.; Cao, C.; Trickey, S. B.; Cheng, H.-P. Predictive FirstPrinciples Simulations of Strain-Induced Phenomena at Water-Silica
+Nanotube Interfaces. J. Chem. Phys. 2008, 129, 011101.
+(10) Michalske, T.; Freiman, S. A Molecular Interpretation of Stress
+Corrosion in Silica. Nature 1982, 295, 511−512.
+(11) Brown, M. A.; Huthwelker, T.; Redondo, A. B.; Janousch, M.;
+Faubel, M.; Arrell, C. A.; Scarongella, M.; Chergui, M.; Bokhoven, J. A.
+Changes in the Silanol Protonation State Measured In Situ at the
+Silica−Aqueous Interface. J. Phys. Chem. Lett. 2012, 3, 231−235.
+(12) Romero-Vargas Castrillón, S.; Giovambattista, N.; Aksay, I. a;
+Debenedetti, P. G. Effect of Surface Polarity on the Structure and
+Dynamics of Water in Nanoscale Confinement. J. Phys. Chem. B 2009,
+113, 1438−1446.
+(13) Mischler, C.; Horbach, J.; Kob, W.; Binder, K. Water Adsorption
+on Amorphous Silica Surfaces: A Car−Parrinello Simulation Study. J.
+Phys.: Condens. Matter 2005, 17, 4005−4013.
+(14) Du, M.-H.; Kolchin, A.; Cheng, H.-P. Hydrolysis of a TwoMembered Silica Ring on the Amorphous Silica Surface. J. Chem. Phys.
+2004, 120, 1044−1054.
+(15) Ma, Y.; Foster, a S.; Nieminen, R. M. Reactions and Clustering
+of Water with Silica Surface. J. Chem. Phys. 2005, 122, 144709.
+(16) Musso, F.; Mignon, P.; Ugliengo, P.; Sodupe, M. Cooperative
+Effects at Water−crystalline Silica Interfaces Strengthen Surface Silanol
+Hydrogen Bonding. An Ab Initio Molecular Dynamics Study. Phys.
+Chem. Chem. Phys. 2012, 14, 10507−10514.
+(17) Mischler, C.; Kob, W.; Binder, K. Classical and Ab-Initio
+Molecular Dynamic Simulation of an Amorphous Silica Surface.
+Comput. Phys. Commun. 2002, 147, 222−225.
+(18) Du, J.; Cormack, A. N. Molecular Dynamics Simulation of the
+Structure and Hydroxylation of Silica Glass Surfaces. J. Am. Ceram. Soc.
+2005, 88, 2532−2539.
+(19) Giovambattista, N.; Rossky, P. J.; Debenedetti, P. G. Effect of
+Temperature on the Structure and Phase Behavior of Water Confined
+
+AUTHOR INFORMATION
+
+Corresponding Author
+
+*E-mail: acv13@engr.psu.edu (A.C.T.v.D.).
+316
+
+DOI: 10.1021/acs.jpcc.5b09784
+J. Phys. Chem. C 2016, 120, 305−317
+
+Article
+
+The Journal of Physical Chemistry C
+by Hydrophobic, Hydrophilic, and Heterogeneous Surfaces. J. Phys.
+Chem. B 2009, 113, 13723−13734.
+(20) Huff, N. T.; Demiralp, E.; Ç agin, T.; Goddard, W. A., III Factors
+Affecting Molecular Dynamics Simulated Vitreous Silica Structures. J.
+Non-Cryst. Solids 1999, 253, 133−142.
+(21) Mahadevan, T. S.; Garofalini, S. H. Dissociative Chemisorption
+of Water onto Silica Surfaces and Formation of Hydronium Ions. J.
+Phys. Chem. C 2008, 112, 1507−1515.
+(22) Lockwood, G. K.; Garofalini, S. H. Proton Dynamics at the
+Water Silica Interface via Dissociative Molecular Dynamics. J. Phys.
+Chem. C 2014, 118, 29750−29759.
+(23) Stukowski, A. Visualization and Analysis of Atomistic Simulation
+Data with OVITO−the Open Visualization Tool. Modell. Simul. Mater.
+Sci. Eng. 2010, 18, 015012.
+(24) van Duin, A. C. T.; Dasgupta, S.; Lorant, F.; Goddard, W. a.
+ReaxFF: A Reactive Force Field for Hydrocarbons. J. Phys. Chem. A
+2001, 105, 9396−9409.
+(25) Tersoff, J. Empirical Interatomic Potential for Carbon, with
+Applications to Amorphous Carbon. Phys. Rev. Lett. 1988, 61, 2879−
+2882.
+(26) Abell, G. Empirical Chemical Pseudopotential Theory of
+Molecular and Metallic Bonding. Phys. Rev. B: Condens. Matter Mater.
+Phys. 1985, 31, 6184−6196.
+(27) Brenner, D. W. Empirical Potential for Hydrocarbons for Use in
+Simulating the Chemical Vapor Deposition of Diamond Films. Phys.
+Rev. B: Condens. Matter Mater. Phys. 1990, 42, 9458−9471.
+(28) Mortier, W. J.; Ghosh, S. K.; Shankar, S. ElectronegativityEqualization Method for the Calculation of Atomic Charges in
+Molecules. J. Am. Chem. Soc. 1986, 108, 4315−4320.
+(29) Rappe, A. K.; Goddard, W. A., III Charge Equilibration for
+Molecular Dynamics Simulations. J. Phys. Chem. 1991, 95, 3358−3363.
+(30) Zou, C.; Duin, A. C. T.; Sorescu, D. C. Theoretical Investigation
+of Hydrogen Adsorption and Dissociation on Iron and Iron Carbide
+Surfaces Using the ReaxFF Reactive Force Field Method. Top. Catal.
+2012, 55, 391−401.
+(31) Islam, M. M.; Ostadhossein, A.; Borodin, O.; Yeates, A. T.;
+Tipton, W. W.; Hennig, R. G.; Kumar, N.; van Duin, A. C. T. ReaxFF
+Molecular Dynamics Simulations on Lithiated Sulfur Cathode
+Materials. Phys. Chem. Chem. Phys. 2015, 17, 3383−3393.
+(32) Kim, S. Y.; van Duin, A. C. T. Simulation of Titanium Metal/
+titanium Dioxide Etching with Chlorine and Hydrogen Chloride Gases
+Using the ReaxFF Reactive Force Field. J. Phys. Chem. A 2013, 117,
+5655−5663.
+(33) Ostadhossein, A.; Cubuk, E. D.; Tritsaris, G. A.; Kaxiras, E.;
+Zhang, S.; van Duin, A. C. T. Stress Effects on the Initial Lithiation of
+Crystalline Silicon Nanowires: Reactive Molecular Dynamics Simulations Using ReaxFF. Phys. Chem. Chem. Phys. 2015, 17, 3832−3840.
+(34) Goverapet Srinivasan, S.; Van Duin, A. C. T. MolecularDynamics-Based Study of the Collisions of Hyperthermal Atomic
+Oxygen with Graphene Using the ReaxFF Reactive Force Field. J. Phys.
+Chem. A 2011, 115, 13269−13280.
+(35) van Duin, A. C. T.; Baas, J. M. A.; van de Graaf, B. Delft
+Molecular Mechanics A New Approach to Hydrocarbon Force Fields.
+J. Chem. Soc., Faraday Trans. 1994, 90, 2881−2895.
+(36) Silva, E. C. C. M.; Li, J.; Liao, D.; Subramanian, S.; Zhu, T.; Yip,
+S. Atomic Scale Chemo-Mechanics of Silica: Nano-Rod Deformation
+and Water Reaction. J. Comput.-Aided Mater. Des. 2006, 13, 135−159.
+(37) Zhu, T.; Li, J.; Lin, X.; Yip, S. Stress-Dependent Molecular
+Pathways of Silica−water Reaction. J. Mech. Phys. Solids 2005, 53,
+1597−1623.
+
+317
+
+DOI: 10.1021/acs.jpcc.5b09784
+J. Phys. Chem. C 2016, 120, 305−317
+
+

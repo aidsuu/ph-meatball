@@ -1,0 +1,589 @@
+Molecular dynamics simulations of liquid
+silica crystallization
+Haiyang Niua,b , Pablo M. Piaggib,c , Michele Invernizzib,d , and Michele Parrinelloa,b,1
+a
+
+Department of Chemistry and Applied Biosciences, Eidgenossische Technische Hochschule (ETH) Zurich c/o Università della Svizzera Italiana Campus, 6900
+Lugano, Switzerland; b Facoltà di Informatica, Instituto di Scienze Computationali, and National Center for Computational Design and Discovery of Novel
+Materials (MARVEL), Università della Svizzera Italiana, 6900 Lugano, Switzerland; c Theory and Simulation of Materials, École Polytechnique Fédérale de
+Lausanne, c/o Università della Svizzera Italiana Campus, 6900 Lugano, Switzerland; and d Theoretical Physics, Eidgenossische Technische Hochschule (ETH)
+Zurich c/o Università della Svizzera Italiana Campus, 6900 Lugano, Switzerland
+Contributed by Michele Parrinello, April 11, 2018 (sent for review March 5, 2018; reviewed by C. Richard A. Catlow and Sidney Yip)
+
+Silica is one of the most abundant minerals on Earth and is widely
+used in many fields. Investigating the crystallization of liquid silica by atomic simulations is of great importance to understand
+the crystallization mechanism; however, the high crystallization
+barrier and the tendency of silica to form glasses make such
+simulations very challenging. Here we have studied liquid silica
+crystallization to β-cristobalite with metadynamics, using X-ray
+diffraction (XRD) peak intensities as collective variables. The frequent transitions between solid and liquid of the biased runs
+demonstrate the highly successful use of the XRD peak intensities
+as collective variables, which leads to the convergence of the freeenergy surface. By calculating the difference in free energy, we
+have estimated the melting temperature of β-cristobalite, which
+is in good agreement with the literature. The nucleation mechanism during the crystallization of liquid silica can be described by
+classical nucleation theory.
+
+Downloaded from https://www.pnas.org by 103.208.94.180 on April 23, 2026 from IP address 103.208.94.180.
+
+silica | crystallization | metadynamics | free-energy calculations |
+classical nucleation theory
+
+S
+
+ilicon dioxide, also known as silica, is one of the most abundant minerals and is widely used in many fields, from engineering to microelectronics and pharmaceutical industries. The
+basic structural element of silica is the SiO4 tetrahedron. There
+are many possible ways of connecting SiO4 tetrahedra, resulting in a very large number of silica polymorphs (1). Among all
+silica polymorphs, β-cristobalite directly crystallizes from liquid
+silica at around 2,000 K (2, 3) under equilibrium conditions. In
+β-cristobalite SiO4 tetrahedra are arranged into a cubic diamond
+lattice (Fig. 1A), while in liquid silica the distinctive SiO4 units
+persist but are arranged into a disordered network (Fig. 1B).
+In material science, geophysics, and technology, understanding
+the crystallization process of β-cristobalite from liquid silica is of
+great importance.
+In general, experiment can give only a very limited insight into
+the crystallization of silica. This difficulty is compounded by the
+high crystallization temperature. Thus, more than in other systems, computer simulations are indispensable for understanding
+its microscopic crystallization mechanism (4). In the case of liquid silica only one simulation has been reported (5). However, in
+this case, crystallization was induced by supercooling the system
+at the pressure of 44.0 GPa. Under these conditions, a transition to the stishovite polymorph was observed. This is rather
+different from the behavior of silica at ambient pressure where
+the liquid at the melting temperature makes a transition to the
+β-cristobalite phase (2, 3).
+The simulation is not without difficulty. On the one hand, the
+timescale is longer than what can be reached in a direct simulation (4). On the other hand, the tendency of liquid silica to
+form glasses (6, 7) and the large variety of silica polymorphs can
+hamper observing crystallization to the thermodynamically stable phase if one tries to accelerate the simulation by using, say,
+very deep quenches.
+This makes the use of an enhanced sampling method mandatory. Such a method should be efficient in accelerating crystallization, yet gentle enough not to induce unwanted transformations. Among the many enhanced sampling methods (8–10)
+5348–5352 | PNAS | May 22, 2018 | vol. 115 | no. 21
+
+suggested in recent decades, the metadynamics method (9) has
+proved to have these qualities. However, like other methods (8,
+10) it relies on the choice of an appropriate set of collective
+variables (CVs). Finding appropriate CVs for this problem is
+therefore key.
+Here we take the point of view that a CV that can be related to
+an experimental quantity is to be preferred to other choices. For
+this reason we use the X-ray diffraction (XRD) pattern as the
+CV. This quantity has many of the properties that are needed;
+i.e., it is simple and physically meaningful and can distinguish
+between different states. Ideally, in the future, one could imagine
+using this experimental information directly to construct useful CVs, when the structure into which the system is going to
+crystallize is not known.
+Methods
+Before discussing the crystallization calculation, we briefly introduce the XRD peak intensity-based CV. In an XRD experiment
+~ is
+the scattering intensity as a function of the scattering vector Q
+given by
+~ =
+I (Q)
+
+N X
+N
+X
+
+~
+
+~
+
+~
+
+fi (Q)fj (Q)e −i Q·(Ri −Rj ) ,
+
+[1]
+
+i=1 j =1
+
+where fi (Q) and fj (Q) are the atomic scattering form factors
+~ i and R
+~ j are the position vectors of atom i and atom
+and R
+j , respectively. fi (Q) and fj (Q) are functions of the scatteringvector modulus Q and depend on the atomic species (11). The
+sum goes over all of the atoms in the system. When spherically
+Significance
+Silica is one of the most abundant minerals in Earth’s crust
+and since the dawn of civilization its use has accompanied mankind’s technological evolution. Understanding crystallization is crucial in many industrial processes as well as
+in geology. Although experiments and simulations are difficult, we are able to perform an atomistic simulation of
+the β-cristobalite crystallization using an enhanced sampling
+method that uses as input only the intensity of the highest
+X-ray diffraction peak of β-cristobalite.
+Author contributions: H.N. and M.P. designed research; H.N. and M.P. performed
+research; H.N., P.M.P., M.I., and M.P. analyzed data; and H.N., P.M.P., M.I., and M.P. wrote
+the paper.
+Reviewers: C.R.A.C., University College London; and S.Y., Massachusetts Institute of
+Technology.
+The authors declare no conflict of interest.
+This open access article is distributed under Creative Commons AttributionNonCommercial-NoDerivatives License 4.0 (CC BY-NC-ND).
+1
+
+To whom correspondence should be addressed. Email: parrinello@phys.chem.ethz.ch.
+
+This article contains supporting information online at www.pnas.org/lookup/suppl/doi:10.
+1073/pnas.1803919115/-/DCSupplemental.
+Published online May 7, 2018.
+
+www.pnas.org/cgi/doi/10.1073/pnas.1803919115
+
+window function (13, 14):
+W (Rij ) =
+
+sin(πRij /Rc )
+.
+πRij /Rc
+
+[3]
+
+Thus, we use as CV the final expression for our estimation of the
+scattering intensity normalized by the total atoms N , which is
+N
+
+I (Q) =
+
+Each Q gives rise to a different CV. Since one can deal only
+with a limited number of CVs, it is necessary to select a few Q
+values. It is natural to select those values of Q that appear more
+prominently in the XRD spectrum (Fig. 2). To drive the simulation we chose as CV the scattering intensity evaluated at the
+{111} peak:
+s1 = I (Q{111} ).
+
+averaged, as done in a powder diffraction experiment, one gets
+the Debye scattering function (12)
+
+[2]
+
+~i −R
+~ j| is the distance between atoms i and j .
+where Rij = |R
+We could have used the static structure factor as the CV;
+however, in the spirit of this work in which we want to use an
+experimentally measurable quantity as the CV, we prefer to use
+Eq. 2. This also provides a simple recipe for obtaining a onedimensional CV in a multicomponent system. One could also
+use the neutron scattering pattern which is simply obtained by
+replacing fi (Q) with the corresponding neutron scattering form
+factor. We prefer to derive our CVs from the most easily available XRD patterns. Furthermore fi (Q) provides a cutoff to the
+range of Q that needs to be considered.
+Since we are dealing with a finite simulation box, there is an
+upper limit Rc to the Rij distances that can be included in Eq.
+2. Such a sharp cutoff introduces a spurious effect typical of
+any truncated Fourier expansion. To limit this artifact we use a
+
+[6]
+
+We are encouraged in the choice of the first peak of I (Q) as
+CV by the Ramakrishnan–Yussouff theory (16) of crystallization
+that suggests the highest peak of the structure factor as a suitable
+freezing order parameter.
+Computational Setup
+We performed an isothermal–isobaric molecular dynamics (MD)
+simulation. All MD simulations were performed with large-scale
+
+400
+β-cristobalite
+liquid silica
+
+111
+300
+Diffraction Intensity
+
+Downloaded from https://www.pnas.org by 103.208.94.180 on April 23, 2026 from IP address 103.208.94.180.
+
+sin(Q · Rij )
+I (Q) =
+fi (Q)fj (Q)
+,
+Q · Rij
+j =1 i=1
+
+[5]
+
+To analyze the results and only for this purpose we use also the
+second-largest peak {022}:
+s2 = I (Q{022} ).
+
+N X
+N
+X
+
+[4]
+
+200
+
+022
+100
+
+222
+
+133
+224
+
+0
+
+20
+
+30
+
+135
+044
+
+40
+50
+60
+70
+80
+Diffraction Angle 2θ(degrees)
+
+90
+
+100
+
+Fig. 2. Simulated XRD patterns for β-cristobalite and liquid silica at 2,400 K
+with 1,536 atoms in the system. The wavelength λ of the X-ray is set to
+1.5406 Å. The lattice parameter of β-cristobalite obtained by simulation
+around the melting temperature is 7.15 Å, in agreement with experimental
+results (15).
+
+Niu et al.
+
+Fig. 3. s1 as a function of simulation time at different temperatures with
+192 atoms in the silica system.
+
+PNAS | May 22, 2018 | vol. 115 | no. 21 | 5349
+
+CHEMISTRY
+
+Fig. 1. Structure models of (A) an idealized unit cell of β-cristobalite
+and (B) liquid silica. β-Cristobalite is constructed by corner-bonded SiO4
+tetrahedra with a cubic diamond framework. In reality the tetrahedra are
+constantly tumbling. A liquid silica structure model is obtained by melting
+β-cristobalite, which is composed mostly of SiO4 tetrahedra with a small
+amount of defects.
+
+N
+
+sin(Q · Rij )
+1 XX
+fi (Q)fj (Q)
+W (Rij ).
+N i=1 j =1
+Q · Rij
+
+Gaussians every 1 ps with width 5 CV units and a height of
+40 kJ/mol.
+
+atomic/molecular massively parallel simulator (LAMMPS) (17)
+patched with a development version of a plugin for molecular
+dynamics (PLUMED 2) (18). The integration of the equations
+of motion was carried out with a time step of 2 fs. We used the
+stochastic velocity rescaling thermostat with a relaxation time
+of 0.1 ps (19). The target pressure of the Parrinello–Rahman
+barostat (20) was set to the standard atmosphere value and a
+relaxation time of 10 ps was used. We used the interatomic
+potentials reported in ref. 21 for our MD simulations, which can
+describe both β-cristobalite and liquid silica. To determine the
+free-energy surface (FES) G(s) as a function of CVs, we used
+well-tempered metadynamics (WTMetaD) (22). We set the bias
+factor of the WTMetaD ensemble equal to 100. The WTMetaD
+bias in the potential space was constructed by depositing
+
+R
+dse −βG(s)
+1
+∆GS →L = − log R L
+,
+β
+dse −βG(s)
+S
+
+[7]
+
+where s is the CV, G(s) is the FES, and the integrals are
+restricted to solid and liquid basins. After the simulations reach
+convergence, we can obtain the difference in free energy ∆GS →L
+as a function of temperature (Fig. 5). As expected, ∆GS →L
+shows a linear relationship with temperature. Furthermore, the
+melting temperature Tm of β-cristobalite can be calculated from
+∆GS →L(Tm ) = 0. Our estimated melting temperature is Tm =
+2,342 ± 15 K, in agreement with the result (2,400 K) reported in
+ref. 21 by using the same interatomic potential. We note that the
+error bars in the ∆GS →L curve decrease with increasing temperature as a consequence of increased rate of transitions between
+the liquid and solid basins.
+Once the temperature dependence of ∆GS →L is determined,
+the difference in entropy between β-cristobalite and liquid,
+140
+
+200
+
+Free energy (KBT)
+
+120
+0
+ΔGS-L (kJ/mol)
+
+Downloaded from https://www.pnas.org by 103.208.94.180 on April 23, 2026 from IP address 103.208.94.180.
+
+Fig. 4. FES for silica with 192 atoms in the system in terms of s1 and s2 . S
+and L refer to solid and liquid, respectively. The free energies are not aligned
+to the same zero value. The barrier height of the transition state has to be
+deduced from the free-energy difference. Above melting temperature, the
+barrier from liquid to solid increases as temperature increases.
+
+Results and Discussion
+Using s1 (Eq. 5) as the CV we performed several WTMetaD simulations at different temperatures. We can see in Fig. 3 that the
+transition between liquid and solid phases is well described. The
+frequent reversible transitions between the two phases, especially
+above 2,500 K, indicate the high effectiveness and efficiency of
+the XRD peak intensity as the CV. From Fig. 3 we can also
+note that the transitions between liquid and solid become less
+frequent as the temperature is lowered. One of the culprits is
+of course the increase in viscosity of silica as the temperature is
+lowered (23).
+Since the transition is reversible, the FES can be estimated accurately. Following the reweighting procedure (24), we
+obtained the FES at different temperatures as a function of
+s1 and s2 (Fig. 4). These pictures clearly show two minima.
+The top right basin with higher CV values refers to the solid
+phase, while the bottom left refers to liquid silica. The dominant
+phase changes from solid at 2,300 K to liquid as the temperature
+increases. At 2,300 K the two phases are separated by a freeenergy barrier of ∼12 kB T . This justifies calling the transition a
+rare event even at this relatively small system size.
+From our calculations, we can also derive the difference in free
+energy ∆GS →L between β-cristobalite and liquid at different
+temperatures as
+
+-200
+
+100
+80
+60
+NSi=64
+NSi=216
+NSi=512
+CNT fit
+
+40
+20
+
+-400
+Tm
+2300
+
+*
+
+2400
+
+0
+0
+2500
+2600
+Temperature (K)
+
+2700
+
+2800
+
+Fig. 5. Difference in free energy ∆GS→L between β-cristobalite and liquid
+phases as a function of temperature. The melting temperature of silica with
+the potential used in this work and reported in ref. 21 is marked in the
+abscissa axis with Tm *. The error bar is obtained by block averaging.
+
+5350 | www.pnas.org/cgi/doi/10.1073/pnas.1803919115
+
+30
+
+60
+
+90
+
+120 150 180 210 240 270 300
+n
+
+Fig. 6. Reweighted free energy as a function of cluster size n for system
+sizes NSi = 64, 216, and 512 at 2,300 K. In our case, only Si atoms are taken
+into account in the calculations, assuming from stoichiometry that a cluster
+nominally of size n (n Si atoms) actually contains 3n atoms (n Si atoms and
+2n O atoms). A CNT fit curve is also plotted for comparison.
+
+Niu et al.
+
+interact with its own images and crystallize much earlier than it
+would otherwise in an infinite system. A rough estimate of nc
+that assumes that the clusters are spherical is
+
+Downloaded from https://www.pnas.org by 103.208.94.180 on April 23, 2026 from IP address 103.208.94.180.
+
+Fig. 7. Configuration snapshots of one typical crystallization process of liquid silica to β-cristobalite at 2,300 K with 1,536 atoms (512 Si atoms) in the
+system. From A to F, the snapshots are extracted from the biased run at an
+interval of 40 ps. Only crystal-like Si atoms are shown, while liquid-like Si
+atoms and O atoms appear transparent. The black square shows the simulation box with periodic boundary conditions. The color scale refers to the
+local entropy values of crystal-like Si atoms. The lower the local entropy
+value, the higher the atom is ordered.
+
+∆SS →L , can be calculated from the thermodynamic relation
+∆SS →L = −(∂∆GS →L /∂T )|N ,P . The estimated ∆SS →L at
+melting temperature is around 14.6 J·K−1 ·mol−1 . We can compare this value with the reported difference in entropy between
+β-cristobalite and amorphous silica of 4.5 J·K−1 ·mol−1 (25) that
+has been experimentally determined at 2,000 K. Considering the
+fact that the entropy content of the liquid state is higher than
+that of the amorphous state, our estimate appears to be in the
+ballpark.
+The FES in Fig. 4 seems to imply that the crystallization
+process is possibly well described by classical nucleation theory
+(CNT). Also in ref. 5 it was suggested that CNT applies to the
+high-pressure transition from liquid to stishovite. However, the
+use of deep quenches might change the nature of the transition.
+We thought it useful to investigate in detail whether CNT applies
+also here.
+We recall that in CNT, the cost of forming a cluster of the new
+phase is expressed as
+∆F (n) = −∆µn + σn 2/3 ,
+
+[8]
+
+in which n is the number of atoms in the cluster and one assumes
+that the clusters are spherical, ∆µ is the difference in chemical
+potential between the new phase and the liquid phase (supersaturation), and σ is an effective interfacial energy. The first
+term represents the free-energy gain in going into the more thermodynamically stable phase whereas the second term expresses
+the energetic cost of forming an interface between the two
+phases. At a critical cluster size n ∗ , ∆F (n ∗ ) has a maximum
+and clusters larger than n ∗ will grow spontaneously and form the
+new phase.
+By using the recently proposed local entropy fingerprint (26),
+we identify crystal-like atoms in the samples (SI Appendix, Fig.
+S1). In our case only Si atoms are selected to calculate the local
+entropy fingerprint. In evaluating ∆F (n) we encountered very
+strong finite-size effects. This is a reflection of the fact that for
+the systems simulated here the critical size exceeds the box volume. Thus, for sizes larger than a certain value nc a cluster can
+1. Heaney PJ, Prewitt CT, Gibbs GV, Mineralogical Society of America (1994) Silica:
+Physical behavior, geochemistry and materials applications. Reviews in Mineralogy
+(Mineralogical Soc Am, Washington, DC), pp 1–40.
+2. Bourova E, Richet P (1998) Quartz and cristobalite: High-temperature cell parameters
+and volumes of fusion. Geophys Res Lett 25:2333–2336.
+3. Reka AA, Pavlovski B, Anovski T, Bogoevski S, Boškovski B (2015) Phase transformations of amorphous sio2 in diatomite at temperature range of 1000–1200 c. Geol
+Maced 29:87–92.
+
+Niu et al.
+
+3
+
+π( L2 )
+Nt ,
+L3
+
+[9]
+
+where L is the box edge, and Nt is the total number of atoms,
+in our case the total Si atom number NSi . Thus, in Fig. 6 we
+calculate ∆F (n) up to the value nc that is appropriate to each
+system size. It can be seen that even before n = nc there are
+significant deviations from CNT. However, it is reassuring to
+see that at lower n all of the different curves overlap with one
+another. From this part of the ∆F (n) curves we can fit the
+value of σ in Eq. 8, after having evaluated ∆µ from the thermodynamic relation ∆µ = ∆S ·(T – Tm ). For T = 2,300 K
+one gets ∆µ = 0.032 kB T ·mol−1 (0.579 kJ·mol−1 ), while the
+fit yields σ = 2.6 kB T ·mol−1 . Assuming that σ is constant
+at different temperatures, we can estimate the critical nucleus
+size at different temperatures. For instance, at temperatures
+2,300 K and 2,200 K, the critical cluster sizes n ∗ would be
+around 160,000 and 3,700 Si atoms, respectively. To observe
+such clusters would require simulating impractically large
+systems.
+Configuration snapshots (Fig. 7) illustrate the homogeneous
+nucleation process at 2,300 K. Several clusters with different sizes
+are shown; some of these disappear and some grow steadily into
+a larger size. Even though the system size is smaller than the
+critical cluster size, our results can shed light on the nucleation
+mechanism of β-cristobalite. The continuous nucleation-growth
+process indicates that the structural unit SiO4 tetrahedra in silica rearrange themselves into the cubic diamond framework of
+β-cristobalite.
+Conclusions
+Understanding crystallization of liquid silica is of great importance for both theoretical and practical reasons. In this paper
+we have shown crystallization of liquid silica to β-cristobalite
+can be studied in atomic simulations using XRD peak intensities as CVs. The results demonstrate the power of using an XRD
+pattern as CVs in atomistic simulations.
+The transition rate between β-cristobalite and liquid in the
+biased runs significantly depends on temperature, which is in
+agreement with the experimental observation that silica viscosity
+increases exponentially with temperature decreasing. The FES
+along with the difference in free energy between β-cristobalite
+and liquid as a function of temperature has been evaluated.
+The estimated melting temperature from the difference in free
+energy shows good agreement with the literature. The estimated
+difference in entropy between β-cristobalite and liquid at melting temperature is around 14.6 J·K−1 ·mol−1 . Furthermore, we
+have also investigated the nucleation mechanism and have found
+the nucleation process can be described by CNT. The crystallization of liquid silica shows a continuous nucleation and growth
+process.
+ACKNOWLEDGMENTS. H.N. is grateful to Dan Mendels and Yixiao Chen
+for useful discussions. This research was supported by the National Center for Computational Design and Discovery of Novel Materials (MARVEL),
+funded by the Swiss National Science Foundation, and European Union
+Grant ERC-2014-AdG-670227/VARMET. The computational time for this work
+was provided by the Swiss National Supercomputing Center (CSCS) under
+Project mr3. Calculations were performed in CSCS cluster Piz Daint.
+
+4. Sosso GC, et al. (2016) Crystal nucleation in liquids: Open questions and future
+challenges in molecular dynamics simulations. Chem Rev 116:7078–7116.
+5. Saika-Voivod I, Poole PH, Bowles RK (2006) Test of classical nucleation theory on
+deeply supercooled high-pressure simulated silica. J Chem Phys 124:224709.
+6. Della Valle RG, Andersen HC (1992) Molecular dynamics simulation of silica liquid and
+glass. J Chem Phys 97:2682–2689.
+7. Vollmayr K, Kob W, Binder K (1996) Cooling-rate effects in amorphous silica: A
+computer-simulation study. Phys Rev B 54:15808–15827.
+
+PNAS | May 22, 2018 | vol. 115 | no. 21 | 5351
+
+CHEMISTRY
+
+4
+
+nc = 3
+
+17. Plimpton S (1995) Fast parallel algorithms for short-range molecular dynamics. J
+Comput Phys 117:1–19.
+18. Tribello GA, Bonomi M, Branduardi D, Camilloni C, Bussi G (2014) Plumed2: New
+feathers for an old bird. Comput Phys Commun 185:604–613.
+19. Bussi G, Donadio D, Parrinello M (2007) Canonical sampling through velocity
+rescaling. J Chem Phys 126:014101.
+20. Parrinello M, Rahman A (1981) Polymorphic transitions in single crystals: A new
+molecular dynamics method. J Appl Phys 52:7182–7190.
+21. Takada A, Richet P, Catlow CRA, Price GD (2004) Molecular dynamics simulations of
+vitreous silica structures. J Non-Crystalline Sol 345:224–229.
+22. Barducci A, Bussi G, Parrinello M (2008) Well-tempered metadynamics: A smoothly
+converging and tunable free-energy method. Phys Rev Lett 100:020603.
+23. Doremus RH (2002) Viscosity of silica. J Appl Phys 92:7619–7629.
+24. Bonomi M, Barducci A, Parrinello M (2009) Reconstructing the equilibrium Boltzmann
+distribution from well-tempered metadynamics. J Comput Chem 30:1615–1621.
+25. Richet P, Bottinga Y, Denielou L, Petitet JP, Tequi C (1982) Thermodynamic properties
+of quartz, cristobalite and amorphous SiO2 : Drop calorimetry measurements between
+1000 and 1800 K and a review from 0 to 2000 K. Geochim Cosmochim Acta 46:2639–
+2658.
+26. Piaggi PM, Parrinello M (2017) Entropy based fingerprint for local crystalline order. J
+Chem Phys 147:114112.
+
+Downloaded from https://www.pnas.org by 103.208.94.180 on April 23, 2026 from IP address 103.208.94.180.
+
+8. Torrie GM, Valleau JP (1977) Nonphysical sampling distributions in Monte Carlo free
+energy estimation: Umbrella sampling. J Comput Phys 23:187–199.
+9. Laio A, Parrinello M (2002) Escaping free-energy minima. Proc Natl Acad Sci USA
+99:12562–12566.
+10. Valsson O, Tiwary P, Parrinello M (2016) Enhancing important fluctuations: Rare
+events and metadynamics from a conceptual viewpoint. Annu Rev Phys Chem
+67:159–184.
+11. Brown PJ, Fox AG, Maslen EN, O’Keefe MA, Willis BTM (2006) Intensity of diffracted
+intensities. International Tables for Crystallography: Mathematical, Physical and
+Chemical Tables, ed Prince E (Springer, Berlin), Vol C, pp 554–595.
+12. Warren BE (1990) X-ray Diffraction (Dover Publications, Inc., New York), pp
+116–150.
+13. Lorch E (1970) Conventional and elastic neutron diffraction from vitreous silica. J Phys
+C Solid State Phys 3:1314–1322.
+14. Lin Z, Zhigilei LV (2006) Time-resolved diffraction profiles and atomic dynamics in
+short-pulse laser-induced structural transformations: Molecular dynamics study. Phys
+Rev B 73:184113.
+15. Damby DE, et al. (2014) The α–β phase transition in volcanic cristobalite. J Appl
+Crystallogr 47:1205–1215.
+16. Ramakrishnan TV, Yussouff M (1979) First-principles order-parameter theory of
+freezing. Phys Rev B 19:2775–2794.
+
+5352 | www.pnas.org/cgi/doi/10.1073/pnas.1803919115
+
+Niu et al.
+
+

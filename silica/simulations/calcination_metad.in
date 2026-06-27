@@ -39,13 +39,17 @@ thermo_style    custom step temp press pe ke etotal density vol atoms
 
 log             out/log.calc_pH${pH}
 
-dump            traj all custom 5000 out/dump.calc_pH${pH}.lammpstrj id type x y z
-dump_modify     traj sort id
-
 # ── Phase 1: Gradual compression to amorphous SiO₂ density ─────────────────
 # After stripping H/H₂O, box is 27³ Å with ~400 atoms → density too low.
 # Target: 20³ Å → density ~1.57 g/cm³ (reasonable for porous amorphous SiO₂).
 # Compress slowly in 2 stages to avoid atom overlap.
+print "=== Energy Minimization to relax healed topology ==="
+minimize        1.0e-4 1.0e-6 100 1000
+reset_timestep  0
+
+dump            traj all custom 5000 out/dump.calc_pH${pH}.lammpstrj id type x y z
+dump_modify     traj sort id
+
 print           "=== Phase 1a: Initial compression (27 → 23 Å) ==="
 velocity        all create 300.0 ${seed} dist gaussian
 
